@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = Ecomm::VERSION
   s.authors     = ['Serhiy Yevtushenko']
   s.email       = ['serhiy.yevtushenko@gmail.com']
-  s.homepage    = 'TODO'
-  s.summary     = 'TODO: Summary of Ecomm.'
-  s.description = 'TODO: Description of Ecomm.'
+  s.homepage    = 'http://github.com/evtik/ecomm'
+  s.summary     = 'www: Summary of Ecomm.'
+  s.description = 'www: Description of Ecomm.'
   s.license     = 'MIT'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile',
@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 5.1.6'
 
   s.add_development_dependency 'capybara'
-  s.add_development_dependency 'factory-girl-rails'
+  s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'sqlite3'
 end
