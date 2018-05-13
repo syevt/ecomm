@@ -4,7 +4,7 @@ module Ecomm
       def call(session)
         cart = session[:cart]
         cut = session[:discount]
-        products = Product.find cart.keys
+        products = Ecomm.product_class.find(cart.keys)
         items_total = cart.values.each_with_index.sum do |quantity, index|
           quantity * products[index].price
         end
