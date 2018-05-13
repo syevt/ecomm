@@ -1,4 +1,6 @@
-describe Ecomm::CartsController do
+describe Ecomm::CartsController, type: :controller do
+  routes { Ecomm::Engine.routes }
+
   describe 'GET show' do
     it 'renders :show template' do
       get :show
