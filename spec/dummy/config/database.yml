@@ -6,6 +6,10 @@ default: &default
   username: bsc_user
   password: qwerty
 
+development:
+  <<: *default
+  database: bsc_dev
+
 test:
   <<: *default
   database: bsc_test

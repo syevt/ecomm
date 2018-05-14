@@ -1,1 +1,1 @@
-Ecomm.product_class = 'Book'
+Ecomm.product_class = 'Yacht'
