@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ['Serhiy Yevtushenko']
   s.email       = ['serhiy.yevtushenko@gmail.com']
   s.homepage    = 'http://github.com/evtik/ecomm'
-  s.summary     = 'www: Summary of Ecomm.'
-  s.description = 'www: Description of Ecomm.'
+  s.summary     = 'Cart/Checkout Rails Engine'
+  s.description = 'A very simple cart and checkout for an online store'
   s.license     = 'MIT'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile',
@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 5.1.6'
 
   s.add_development_dependency 'capybara'
-  s.add_development_dependency 'factory_girl_rails'
+  s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'rails-controller-testing'
   s.add_development_dependency 'rspec-rails'
 end
