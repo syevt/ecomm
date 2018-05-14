@@ -1,6 +1,6 @@
-class CreateYachts < ActiveRecord::Migration[5.1]
+class CreateRawProducts < ActiveRecord::Migration[5.1]
   def change
-    create_table :yachts do |t|
+    create_table :raw_products do |t|
       t.json :image
       t.string :name
       t.text :desc

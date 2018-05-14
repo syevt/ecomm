@@ -1,4 +1,4 @@
-class Yacht < ApplicationRecord
+class RawProduct < ApplicationRecord
   alias_attribute :main_image, :image
   alias_attribute :title, :name
   alias_attribute :description, :desc

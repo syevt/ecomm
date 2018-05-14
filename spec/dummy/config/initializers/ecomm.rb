@@ -1,1 +1,1 @@
-Ecomm.product_class = 'Yacht'
+Ecomm.product_class = 'RawProduct'
