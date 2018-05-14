@@ -3,7 +3,7 @@ module Ecomm
     before_action { session[:cart] ||= Hash.new(0) }
 
     def show
-      @order_items = Common::BuildLineItemsFromCart.call(session[:cart])
+      @line_items = Common::BuildLineItemsFromCart.call(session[:cart])
       totals = Cart::CalculateCartTotals.call(session)
       @items_total, @order_subtotal, @discount = totals
       session[:items_total] = @items_total

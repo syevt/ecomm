@@ -1,6 +1,6 @@
 %main.container.general-main-wrap
   %h1.general-title-margin= t('.caption')
-  - if @order_items.empty?
+  - if @line_items.empty?
     .container.text-center.mt-50
       %h2= t('.cart_empty_html', href: link_to(t('catalog.index.caption'),
         catalog_index_path))
