@@ -8,7 +8,7 @@ describe Ecomm::CartsController, type: :controller do
     end
 
     it 'assigns order total variables' do
-      create_list(:book_with_authors_and_materials, 3)
+      create_list(:raw_product, 3)
       get :show, session: { cart: { 1 => 1, 2 => 2, 3 => 3 } }
       expect(assigns(:items_total)).to be_truthy
       expect(assigns(:discount)).to be_truthy
