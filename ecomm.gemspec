@@ -19,8 +19,10 @@ Gem::Specification.new do |s|
 
   s.test_files = Dir['spec/**/*']
 
-  s.add_dependency 'rails', '~> 5.1.6'
+  s.add_dependency 'hamlit'
+  s.add_dependency 'hamlit-rails'
   s.add_dependency 'pg'
+  s.add_dependency 'rails', '~> 5.1.6'
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'factory_girl_rails'
