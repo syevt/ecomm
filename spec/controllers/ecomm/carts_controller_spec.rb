@@ -8,9 +8,17 @@ describe Ecomm::CartsController, type: :controller do
     end
 
     it 'assigns order total variables' do
-      create_list(:raw_product, 3)
-      get :show, session: { cart: { 1 => 1, 2 => 2, 3 => 3 } }
+      # pr = FactoryBot.create_list(:raw_product, 3)
+      pr = create_list(:raw_product, 3)
+      # puts RawProduct.find 13
+      puts pr.first.id
+      puts pr.first.persisted?
+      p RawProduct.all.map { |p| p.id }
+      # get :show, session: { cart: { 1 => 1, 2 => 2, 3 => 3 } }
+      # sleep 30
+      get :show, session: { cart: { 13 => 1, 14 => 2, 15 => 3 } }
       expect(assigns(:items_total)).to be_truthy
+      # expect(assigns(:items_total)).to eq(4)
       expect(assigns(:discount)).to be_truthy
       expect(assigns(:order_subtotal)).to be_truthy
     end
