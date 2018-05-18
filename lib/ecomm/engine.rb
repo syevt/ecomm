@@ -1,4 +1,5 @@
 require 'hamlit'
+require 'wisper'
 
 module Ecomm
   class Engine < ::Rails::Engine

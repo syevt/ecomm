@@ -1,9 +1,7 @@
 $:.push File.expand_path("../lib", __FILE__)
 
-# Maintain your gem's version:
 require 'ecomm/version'
 
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = 'ecomm'
   s.version     = Ecomm::VERSION
@@ -22,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'hamlit'
   s.add_dependency 'hamlit-rails'
   s.add_dependency 'pg'
+  s.add_dependency 'wisper'
   s.add_dependency 'rails', '~> 5.1.6'
 
   s.add_development_dependency 'capybara'
