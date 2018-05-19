@@ -1,7 +1,9 @@
-describe CartItemsController do
+describe Ecomm::CartItemsController, type: :controller do
+  routes { Ecomm::Engine.routes }
+
   describe 'POST create' do
     before do
-      create(:book_with_authors_and_materials)
+      create(:raw_product)
       request.env['HTTP_REFERER'] = root_url(only_path: true)
       post :create, params: { id: 1, quantity: 5 }
     end
@@ -17,7 +19,7 @@ describe CartItemsController do
 
   describe 'DELETE destroy' do
     before do
-      create_list(:book_with_authors_and_materials, 3)
+      create_list(:raw_product, 3)
       session[:cart] = { '1' => 1, '2' => 2, '3' => 3 }
       delete :destroy, params: { id: 3 }
     end
