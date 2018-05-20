@@ -1,4 +1,4 @@
-describe Cart::GetCouponError do
+describe Ecomm::Cart::GetCouponError do
   describe '.call' do
     it "returns 'does not exist' message" do
       result = described_class.call([true, false])
