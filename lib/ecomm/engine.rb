@@ -1,4 +1,5 @@
 require 'hamlit'
+require 'rectify'
 require 'wisper'
 
 module Ecomm
