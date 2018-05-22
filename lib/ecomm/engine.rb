@@ -1,3 +1,4 @@
+require 'devise'
 require 'hamlit'
 require 'rectify'
 require 'wisper'
