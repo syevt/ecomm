@@ -2,7 +2,7 @@ module Ecomm
   class CheckoutController < ApplicationController
     include Rectify::ControllerHelpers
 
-    before_action(:authenticate_user!)
+    before_action(:authenticate_customer)
     before_action(-> { present CheckoutPresenter.new }, only: CHECKOUT_STEPS)
 
     CHECKOUT_STEPS.each do |step|

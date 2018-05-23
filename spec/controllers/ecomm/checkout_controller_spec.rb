@@ -200,6 +200,13 @@ describe Ecomm::CheckoutController, type: :controller do
   end
 
   context 'guest user' do
+    shared_examples 'not authenticated' do |verb, path|
+      it 'redirects to login page' do
+        send(verb, path)
+        expect(response).to redirect_to(Ecomm.signin_path)
+      end
+    end
+
     describe 'GET address' do
       it 'redirects to login page' do
         get :address
@@ -221,12 +228,13 @@ describe Ecomm::CheckoutController, type: :controller do
       end
     end
 
-    describe 'POST submit_delivery' do
-      it 'redirects to login page' do
-        post :submit_delivery
-        expect(response).to redirect_to(new_user_session_path)
-      end
-    end
+    # describe 'POST submit_delivery' do
+      # it 'redirects to login page' do
+        # post :submit_delivery
+        # expect(response).to redirect_to(Ecomm.signin_path)
+      # end
+    # end
+    include_examples('not authenticated', :post, :submit_delivery)
 
     describe 'GET payment' do
       it 'redirects to login page' do
