@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180522060600) do
+ActiveRecord::Schema.define(version: 20180525220328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 20180522060600) do
     t.string "code"
     t.datetime "expires"
     t.integer "discount"
+  end
+
+  create_table "ecomm_credit_cards", force: :cascade do |t|
+    t.string "number"
+    t.string "cardholder"
+    t.string "month_year"
+    t.string "cvv"
+    t.integer "order_id"
+    t.index ["order_id"], name: "index_ecomm_credit_cards_on_order_id"
   end
 
   create_table "ecomm_line_items", force: :cascade do |t|
@@ -77,6 +86,7 @@ ActiveRecord::Schema.define(version: 20180522060600) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "ecomm_credit_cards", "ecomm_orders", column: "order_id"
   add_foreign_key "ecomm_line_items", "ecomm_orders", column: "order_id"
   add_foreign_key "ecomm_orders", "ecomm_coupons", column: "coupon_id"
   add_foreign_key "ecomm_orders", "ecomm_shipments", column: "shipment_id"

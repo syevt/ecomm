@@ -2,14 +2,16 @@ describe Ecomm::CheckoutController, type: :controller do
   routes { Ecomm::Engine.routes }
 
   context 'logged in user' do
-    let(:user) { create(:user) }
-    before do
-      sign_in(user)
-    end
+    let(:member) { create(:member) }
+
+    # before do
+      # allow(controller).to receive(:current_customer).and_return(member)
+    # end
+    before { sign_in(member) }
 
     context 'GET address' do
       before do
-        create_list(:book_with_authors_and_materials, 3)
+        create_list(:raw_product, 3)
       end
 
       it 'renders :address template' do
@@ -164,9 +166,9 @@ describe Ecomm::CheckoutController, type: :controller do
           }.to change(Order, :count).by(1)
         end
 
-        it 'sends order confirmation email to user' do
+        it 'sends order confirmation email to member' do
           post :submit_confirm, session: session_data
-          expect(ActionMailer::Base.deliveries.last.to).to include(user.email)
+          expect(ActionMailer::Base.deliveries.last.to).to include(member.email)
         end
       end
     end
@@ -184,7 +186,7 @@ describe Ecomm::CheckoutController, type: :controller do
         order.addresses << build(:address)
         order.shipment = build(:shipment)
         order.credit_card = build(:credit_card)
-        order.user = user
+        order.member = member
         order.save
         get :complete
       end
