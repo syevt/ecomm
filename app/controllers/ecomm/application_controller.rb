@@ -11,9 +11,9 @@ module Ecomm
     private
 
     def authenticate_customer
-      return unless current_customer
+      return if current_customer
       session[Ecomm.flash_login_return_to] = request.fullpath
-      flash.alert = 'need to add this to i18n locale or ref to Devise`s'
+      flash.alert = t(Ecomm.flash_not_authenticated_message_key)
       redirect_to(Ecomm.signin_path)
     end
   end

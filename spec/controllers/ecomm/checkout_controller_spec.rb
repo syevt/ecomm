@@ -207,68 +207,40 @@ describe Ecomm::CheckoutController, type: :controller do
       end
     end
 
-    describe 'GET address' do
-      it 'redirects to login page' do
-        get :address
-        expect(response).to redirect_to(new_user_session_path)
-      end
+    context 'GET address' do
+      include_examples('not authenticated', :get, :address)
     end
 
-    describe 'POST submit_address' do
-      it 'redirects to login page' do
-        post :submit_address
-        expect(response).to redirect_to(new_user_session_path)
-      end
+    context 'POST submit_address' do
+      include_examples('not authenticated', :post, :submit_address)
     end
 
-    describe 'GET delivery' do
-      it 'redirects to login page' do
-        get :delivery
-        expect(response).to redirect_to(new_user_session_path)
-      end
+    context 'GET delivery' do
+      include_examples('not authenticated', :get, :delivery)
     end
 
-    # describe 'POST submit_delivery' do
-      # it 'redirects to login page' do
-        # post :submit_delivery
-        # expect(response).to redirect_to(Ecomm.signin_path)
-      # end
-    # end
-    include_examples('not authenticated', :post, :submit_delivery)
-
-    describe 'GET payment' do
-      it 'redirects to login page' do
-        get :payment
-        expect(response).to redirect_to(new_user_session_path)
-      end
+    context 'POST submit_delivery' do
+      include_examples('not authenticated', :post, :submit_delivery)
     end
 
-    describe 'POST submit_payment' do
-      it 'redirects to login page' do
-        post :submit_payment
-        expect(response).to redirect_to(new_user_session_path)
-      end
+    context 'GET payment' do
+      include_examples('not authenticated', :get, :payment)
     end
 
-    describe 'GET confirm' do
-      it 'redirects to login page' do
-        get :confirm
-        expect(response).to redirect_to(new_user_session_path)
-      end
+    context 'POST submit_payment' do
+      include_examples('not authenticated', :post, :submit_payment)
     end
 
-    describe 'POST submit_confirm' do
-      it 'redirects to login page' do
-        post :submit_confirm
-        expect(response).to redirect_to(new_user_session_path)
-      end
+    context 'GET confirm' do
+      include_examples('not authenticated', :get, :confirm)
     end
 
-    describe 'GET complete' do
-      it 'redirects to login page' do
-        get :complete
-        expect(response).to redirect_to(new_user_session_path)
-      end
+    context 'POST submit_confirm' do
+      include_examples('not authenticated', :post, :submit_confirm)
+    end
+
+    context 'GET complete' do
+      include_examples('not authenticated', :get, :complete)
     end
   end
 end
