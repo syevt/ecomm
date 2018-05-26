@@ -1,3 +1,4 @@
+require 'countries/global'
 require 'devise'
 require 'hamlit'
 require 'rectify'

@@ -13,8 +13,9 @@ module Ecomm
         address_exists = session[:address] &&
                          session[:address]['address_type'] == address_type
         return @get_address_from_session.call(session) if address_exists
-        user_id = Ecomm.get_user_id(session)
-        address = Address.find_by(user_id: user_id, address_type: address_type)
+        customer_id = Ecomm.get_customer_id(session)
+        address = Address.find_by(customer_id: customer_id,
+                                  address_type: address_type)
         return AddressForm.from_model(address) if address
         AddressForm.new(address_type: address_type)
       end
