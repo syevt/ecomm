@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180525220328) do
+ActiveRecord::Schema.define(version: 20180526112646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ecomm_addresses", force: :cascade do |t|
+    t.integer "customer_id"
+    t.integer "order_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "street_address"
+    t.string "city"
+    t.string "zip"
+    t.string "country"
+    t.string "phone"
+    t.string "address_type"
+    t.index ["customer_id"], name: "index_ecomm_addresses_on_customer_id"
+    t.index ["order_id"], name: "index_ecomm_addresses_on_order_id"
+  end
 
   create_table "ecomm_coupons", force: :cascade do |t|
     t.string "code"
@@ -41,7 +56,7 @@ ActiveRecord::Schema.define(version: 20180525220328) do
   end
 
   create_table "ecomm_orders", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "customer_id"
     t.integer "shipment_id"
     t.integer "coupon_id"
     t.string "state"
@@ -49,8 +64,8 @@ ActiveRecord::Schema.define(version: 20180525220328) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["coupon_id"], name: "index_ecomm_orders_on_coupon_id"
+    t.index ["customer_id"], name: "index_ecomm_orders_on_customer_id"
     t.index ["shipment_id"], name: "index_ecomm_orders_on_shipment_id"
-    t.index ["user_id"], name: "index_ecomm_orders_on_user_id"
   end
 
   create_table "ecomm_shipments", force: :cascade do |t|
@@ -86,6 +101,7 @@ ActiveRecord::Schema.define(version: 20180525220328) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "ecomm_addresses", "ecomm_orders", column: "order_id"
   add_foreign_key "ecomm_credit_cards", "ecomm_orders", column: "order_id"
   add_foreign_key "ecomm_line_items", "ecomm_orders", column: "order_id"
   add_foreign_key "ecomm_orders", "ecomm_coupons", column: "coupon_id"

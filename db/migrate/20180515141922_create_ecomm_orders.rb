@@ -1,7 +1,7 @@
 class CreateEcommOrders < ActiveRecord::Migration[5.1]
   def change
     create_table :ecomm_orders do |t|
-      t.integer :user_id
+      t.integer :customer_id
       t.integer :shipment_id
       t.integer :coupon_id
       t.string :state
@@ -10,7 +10,7 @@ class CreateEcommOrders < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    add_index :ecomm_orders, :user_id
+    add_index :ecomm_orders, :customer_id
     add_index :ecomm_orders, :shipment_id
     add_index :ecomm_orders, :coupon_id
 
