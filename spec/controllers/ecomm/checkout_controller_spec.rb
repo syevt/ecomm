@@ -4,9 +4,6 @@ describe Ecomm::CheckoutController, type: :controller do
   context 'logged in user' do
     let(:member) { create(:member) }
 
-    # before do
-      # allow(controller).to receive(:current_customer).and_return(member)
-    # end
     before { sign_in(member) }
 
     context 'GET address' do
