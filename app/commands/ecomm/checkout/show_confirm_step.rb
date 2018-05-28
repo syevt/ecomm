@@ -2,11 +2,11 @@ module Ecomm
   module Checkout
     class ShowConfirmStep < BaseCommand
       def self.build
-        new(Checkout::BuildOrder.build, Common::BuildOrderItemsFromCart.build)
+        new(Checkout::BuildOrder.build, Common::BuildLineItemsFromCart.build)
       end
 
       def initialize(*args)
-        @builder, @order_items_builder = args
+        @builder, @line_items_builder = args
       end
 
       def call(session, _flash)
@@ -18,7 +18,7 @@ module Ecomm
           order: order,
           billing: order.billing,
           shipping: order.use_billing ? order.billing : order.shipping,
-          order_items: @order_items_builder.call(session[:cart])
+          line_items: @line_items_builder.call(session[:cart])
         )
       end
     end
