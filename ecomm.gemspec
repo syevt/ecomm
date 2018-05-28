@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir['spec/**/*']
 
   s.add_dependency 'countries'
+  s.add_dependency 'draper'
   s.add_dependency 'hamlit'
   s.add_dependency 'hamlit-rails'
   s.add_dependency 'pg'

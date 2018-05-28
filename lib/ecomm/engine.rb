@@ -1,5 +1,6 @@
 require 'countries/global'
 require 'devise'
+require 'draper'
 require 'hamlit'
 require 'rectify'
 require 'wisper'

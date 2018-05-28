@@ -148,7 +148,7 @@ describe Ecomm::CheckoutController, type: :controller do
 
       context 'POST submit_confirm' do
         before do
-          create_list(:book_with_authors_and_materials, 3)
+          create_list(:raw_product, 3)
           create(:shipment)
         end
 
@@ -172,18 +172,18 @@ describe Ecomm::CheckoutController, type: :controller do
 
     context 'GET complete' do
       before do
-        allow_any_instance_of(CheckoutController).to(
+        allow_any_instance_of(Ecomm::CheckoutController).to(
           receive(:flash).and_return(
             ActionDispatch::Flash::FlashHash.new(order_confirmed: true)
           )
         )
-        create_list(:book_with_authors_and_materials, 3)
+        create_list(:raw_product, 3)
         order = build(:order)
-        order.order_items << build_list(:order_item, 3)
+        order.line_items << build_list(:line_item, 3)
         order.addresses << build(:address)
         order.shipment = build(:shipment)
         order.credit_card = build(:credit_card)
-        order.member = member
+        order.customer = member
         order.save
         get :complete
       end
