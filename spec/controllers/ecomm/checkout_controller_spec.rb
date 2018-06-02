@@ -160,12 +160,18 @@ describe Ecomm::CheckoutController, type: :controller do
         it 'creates new order in db' do
           expect {
             post :submit_confirm, session: session_data
-          }.to change(Order, :count).by(1)
+          }.to change(Ecomm::Order, :count).by(1)
         end
 
         it 'sends order confirmation email to member' do
+          allow_any_instance_of(ApplicationController).to(
+            receive(:completed_order_url)
+          ).and_return('/some/path')
           post :submit_confirm, session: session_data
-          expect(ActionMailer::Base.deliveries.last.to).to include(member.email)
+          puts ::ActionMailer::Base.deliveries.count
+          expect(::ActionMailer::Base.deliveries.last.to).to(
+            include(member.email)
+          )
         end
       end
     end

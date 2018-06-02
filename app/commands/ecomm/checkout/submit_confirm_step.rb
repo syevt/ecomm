@@ -2,7 +2,7 @@ module Ecomm
   module Checkout
     class SubmitConfirmStep < BaseCommand
       def self.build
-        new(Checkout::BuildCompletedOrder.build, NotifierMailer)
+        new(Checkout::BuildCompletedOrder.build, OrderMailer)
       end
 
       def initialize(*args)
