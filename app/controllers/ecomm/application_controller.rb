@@ -2,14 +2,10 @@ module Ecomm
   class ApplicationController < ActionController::Base
     protect_from_forgery with: :exception
 
-    helper_method :current_customer, :completed_order_url
+    helper_method :current_customer
 
     def current_customer
       send(Ecomm.current_customer_method)
-    end
-
-    def completed_order_url(order)
-      main_app.send(Ecomm.completed_order_url_helper_method, order)
     end
 
     private

@@ -1,5 +1,5 @@
 module Ecomm
-  class OrderMailer < ::ActionMailer::Base
+  class OrderMailer < ApplicationMailer
     def order_email(order)
       @customer = order.customer
       @order = order.decorate
