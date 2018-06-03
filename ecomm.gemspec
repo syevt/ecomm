@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'devise'
   s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'faker'
+  s.add_development_dependency 'letter_opener'
   s.add_development_dependency 'rails-controller-testing'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'wisper-rspec'

@@ -13,7 +13,7 @@ describe Ecomm::OrderMailer, type: :mailer do
   let(:order_email) { Ecomm::OrderMailer.order_email(order) }
 
   it 'after placing order sends confirmation email to user' do
-    expect(order_email.to).to include(user.email)
+    expect(order_email.to).to include(customer.email)
   end
 
   it 'has correct subject' do

@@ -164,12 +164,8 @@ describe Ecomm::CheckoutController, type: :controller do
         end
 
         it 'sends order confirmation email to member' do
-          allow_any_instance_of(ApplicationController).to(
-            receive(:completed_order_url)
-          ).and_return('/some/path')
           post :submit_confirm, session: session_data
-          puts ::ActionMailer::Base.deliveries.count
-          expect(::ActionMailer::Base.deliveries.last.to).to(
+          expect(ActionMailer::Base.deliveries.last.to).to(
             include(member.email)
           )
         end

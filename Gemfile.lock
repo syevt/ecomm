@@ -121,6 +121,10 @@ GEM
       concurrent-ruby (~> 1.0)
     i18n_data (0.8.0)
     ice_nine (0.11.2)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.6.0)
+      launchy (~> 2.2)
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -240,6 +244,7 @@ DEPENDENCIES
   ecomm!
   factory_bot_rails
   faker
+  letter_opener
   rails-controller-testing
   rspec-rails
   wisper-rspec

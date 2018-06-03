@@ -11,3 +11,6 @@ Ecomm.session_customer_id_key = "['warden.user.member.key'][0][0]"
 
 # Paths & urls
 Ecomm.completed_order_url_helper_method = 'order_url'
+
+# Mailer
+Ecomm.smtp_from = 'sales@main.app'
