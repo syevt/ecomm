@@ -1,6 +1,5 @@
 module Ecomm
-  class ApplicationMailer < ActionMailer::Base
-    default(from: Ecomm.smtp_from)
+  class ApplicationMailer < ::ApplicationMailer
     include Ecomm::ApplicationHelper
     add_template_helper(Ecomm::ApplicationHelper)
   end

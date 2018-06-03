@@ -6,8 +6,7 @@ module Ecomm
   mattr_accessor :customer_class, :product_class,
                  :current_customer_method, :completed_order_url_helper_method,
                  :flash_login_return_to, :flash_not_authenticated_message_key,
-                 :signin_path, :back_to_store_path, :session_customer_id_key,
-                 :smtp_from
+                 :signin_path, :back_to_store_path, :session_customer_id_key
 
   class << self
     def customer_class

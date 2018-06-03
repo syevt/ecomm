@@ -163,7 +163,7 @@ describe Ecomm::CheckoutController, type: :controller do
           }.to change(Ecomm::Order, :count).by(1)
         end
 
-        it 'sends order confirmation email to member' do
+        it 'sends order confirmation email to customer' do
           post :submit_confirm, session: session_data
           expect(ActionMailer::Base.deliveries.last.to).to(
             include(member.email)
