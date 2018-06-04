@@ -33,7 +33,11 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'faker'
   s.add_development_dependency 'letter_opener'
+  s.add_development_dependency 'poltergeist'
+  s.add_development_dependency 'puma'
+  s.add_development_dependency 'rack_session_access'
   s.add_development_dependency 'rails-controller-testing'
   s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'wisper-rspec'
 end
