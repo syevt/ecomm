@@ -1,9 +1,8 @@
-feature 'Cart page', use_selenium: true do
-# feature 'Cart page' do
+# feature 'Cart page', use_selenium: true do
+feature 'Cart page' do
   context 'empty cart' do
     it 'has cart empty message' do
       visit ecomm.cart_path
-      sleep 10
       expect(page).to have_content(
         t('ecomm.carts.show.cart_empty_html',
           href: t('ecomm.carts.show.catalog_caption'))
@@ -13,9 +12,10 @@ feature 'Cart page', use_selenium: true do
 
   context 'cart with items' do
     around do |example|
-      @books = create_list(:book_with_authors_and_materials, 3)
-      page.set_rack_session(cart: { 1 => 1, 2 => 2, 3 => 3 })
-      visit cart_path
+      @products = create_list(:raw_product, 3)
+      # page.set_rack_session(cart: { 1 => 1, 2 => 2, 3 => 3 })
+      page.set_rack_session('cart' => { 1 => 1, 2 => 2, 3 => 3 })
+      visit ecomm.cart_path
       example.run
       page.set_rack_session(cart: nil)
     end
@@ -30,7 +30,7 @@ feature 'Cart page', use_selenium: true do
 
     scenario 'has books in cart', use_selenium: true do
       expect(page).to have_css('p.general-title', count: 3)
-      expect(first('p.general-title').text).to eq(@books.first.title)
+      expect(first('p.general-title').text).to eq(@products.first.title)
     end
 
     scenario 'has correct totals' do
@@ -42,8 +42,8 @@ feature 'Cart page', use_selenium: true do
       scenario 'click plus button adds 1 to book quantity',
                use_selenium: true do
         first('a.quantity-increment').click
-        expect(find_field("quantities-#{@books.first.id}").value).to eq('2')
-        expect(find_field("xs-quantities-#{@books.first.id}",
+        expect(find_field("quantities-#{@products.first.id}").value).to eq('2')
+        expect(find_field("xs-quantities-#{@products.first.id}",
                           visible: false).value).to eq('2')
         expect(page).to have_css('p.font-16', text: '7.00')
         expect(page).to have_css('strong.font-18', text: '7.00')
@@ -52,16 +52,16 @@ feature 'Cart page', use_selenium: true do
       context 'click minus button' do
         scenario 'does not subtract 1 from quantity if it is 1' do
           first('a.quantity-decrement').click
-          expect(find_field("quantities-#{@books.first.id}").value).to eq('1')
-          expect(find_field("xs-quantities-#{@books.first.id}",
+          expect(find_field("quantities-#{@products.first.id}").value).to eq('1')
+          expect(find_field("xs-quantities-#{@products.first.id}",
                             visible: false).value).to eq('1')
         end
 
         scenario 'subtract 1 from quantity if it is greater than 1',
                  use_selenium: true do
           all('a.quantity-decrement')[1].click
-          expect(find_field("quantities-#{@books.second.id}").value).to eq('1')
-          expect(find_field("xs-quantities-#{@books.second.id}",
+          expect(find_field("quantities-#{@products.second.id}").value).to eq('1')
+          expect(find_field("xs-quantities-#{@products.second.id}",
                             visible: false).value).to eq('1')
           expect(page).to have_css('p.font-16', text: '5.00')
           expect(page).to have_css('strong.font-18', text: '5.00')
