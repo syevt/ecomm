@@ -1,4 +1,5 @@
 require 'countries/global'
+require 'carrierwave'
 require 'devise'
 require 'draper'
 require 'hamlit'

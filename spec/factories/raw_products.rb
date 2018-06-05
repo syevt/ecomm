@@ -3,6 +3,10 @@ FactoryBot.define do
     name { Faker::Ancient.god }
     desc { Faker::Hipster.paragraph(5, false, 10) }
     cost 1.0
-    image '/fake/path/to/image'
+    image do
+      Rack::Test::UploadedFile.new(
+        File.join(Rails.root, '..', 'fixtures', '16.png'), 'image/png'
+      )
+    end
   end
 end

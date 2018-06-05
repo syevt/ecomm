@@ -1,5 +1,5 @@
-# feature 'Cart page', use_selenium: true do
-feature 'Cart page' do
+feature 'Cart page', use_selenium: true do
+# feature 'Cart page' do
   context 'empty cart' do
     it 'has cart empty message' do
       visit ecomm.cart_path
@@ -13,14 +13,14 @@ feature 'Cart page' do
   context 'cart with items' do
     around do |example|
       @products = create_list(:raw_product, 3)
-      # page.set_rack_session(cart: { 1 => 1, 2 => 2, 3 => 3 })
-      page.set_rack_session('cart' => { 1 => 1, 2 => 2, 3 => 3 })
+      page.set_rack_session(cart: { 1 => 1, 2 => 2, 3 => 3 })
       visit ecomm.cart_path
       example.run
       page.set_rack_session(cart: nil)
     end
 
     scenario 'has correct number of books on cart icon' do
+      sleep 60
       expect(page).to have_css(
         '.visible-xs .shop-quantity',
         visible: false, text: '3'

@@ -3,4 +3,6 @@ class RawProduct < ApplicationRecord
   alias_attribute :title, :name
   alias_attribute :description, :desc
   alias_attribute :price, :cost
+
+  mount_uploader :image, ImageUploader
 end
