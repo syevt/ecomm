@@ -1,9 +1,12 @@
+require 'bootstrap-sass'
 require 'countries/global'
 require 'carrierwave'
 require 'devise'
 require 'draper'
 require 'hamlit'
+require 'jquery-rails'
 require 'rectify'
+require 'sass-rails'
 require 'wisper'
 
 module Ecomm

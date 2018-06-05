@@ -17,15 +17,18 @@ Gem::Specification.new do |s|
 
   s.test_files = Dir['spec/**/*']
 
+  s.add_dependency 'bootstrap-sass'
   s.add_dependency 'countries'
   s.add_dependency 'draper'
   s.add_dependency 'hamlit'
   s.add_dependency 'hamlit-rails'
+  s.add_dependency 'jquery-rails'
   s.add_dependency 'pg'
+  s.add_dependency 'rails', '~> 5.1.6'
   s.add_dependency 'rails-i18n'
   s.add_dependency 'rectify'
+  s.add_dependency 'sass-rails'
   s.add_dependency 'wisper'
-  s.add_dependency 'rails', '~> 5.1.6'
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'carrierwave'
