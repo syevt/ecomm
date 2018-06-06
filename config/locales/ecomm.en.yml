@@ -83,3 +83,5 @@ en:
       currency:
         format:
           unit: '€'
+
+    currency: '€'
