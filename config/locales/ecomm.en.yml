@@ -79,9 +79,7 @@ en:
         order: 'Order'
         back_to_store: 'Back to Store'
 
-    number:
-      currency:
-        format:
-          unit: '€'
-
-    currency: '€'
+  number:
+    currency:
+      format:
+        unit: '€'

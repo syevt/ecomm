@@ -1,5 +1,5 @@
-feature 'Cart page', use_selenium: true do
-# feature 'Cart page' do
+# feature 'Cart page', use_selenium: true do
+feature 'Cart page' do
   context 'empty cart' do
     it 'has cart empty message' do
       visit ecomm.cart_path
@@ -20,7 +20,6 @@ feature 'Cart page', use_selenium: true do
     end
 
     scenario 'has correct number of books on cart icon' do
-      sleep 600
       expect(page).to have_css(
         '.visible-xs .shop-quantity',
         visible: false, text: '3'
