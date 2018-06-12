@@ -53,5 +53,6 @@ RSpec.configure do |config|
   config.include Wisper::RSpec::BroadcastMatcher
   config.include AbstractController::Translation
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :feature
   # config.include Rails.application.routes.url_helpers
 end

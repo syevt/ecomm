@@ -27,7 +27,8 @@ feature 'Cart page' do
       expect(page).to have_css('.hidden-xs .shop-quantity', text: '3')
     end
 
-    scenario 'has books in cart', use_selenium: true do
+    # scenario 'has books in cart', use_selenium: true do
+    scenario 'has books in cart' do
       expect(page).to have_css('p.general-title', count: 3)
       expect(first('p.general-title').text).to eq(@products.first.title)
     end
@@ -84,28 +85,28 @@ feature 'Cart page' do
     context 'filling in coupon code' do
       scenario 'with non-existent code' do
         fill_in('coupon', with: 'aslkd')
-        click_on(t('carts.show.update_cart'))
-        expect(page).to have_content(t('coupon.non_existent'))
+        click_on(t('ecomm.carts.show.update_cart'))
+        expect(page).to have_content(t('ecomm.coupon.non_existent'))
       end
 
       scenario 'with expired coupon' do
         create(:coupon, expires: Date.today - 1.day)
         fill_in('coupon', with: '123456')
-        click_on(t('carts.show.update_cart'))
-        expect(page).to have_content(t('coupon.expired'))
+        click_on(t('ecomm.carts.show.update_cart'))
+        expect(page).to have_content(t('ecomm.coupon.expired'))
       end
 
       scenario 'with coupon been already taken' do
         create(:coupon_with_order)
         fill_in('coupon', with: '123456')
-        click_on(t('carts.show.update_cart'))
-        expect(page).to have_content(t('coupon.taken'))
+        click_on(t('ecomm.carts.show.update_cart'))
+        expect(page).to have_content(t('ecomm.coupon.taken'))
       end
 
       scenario 'with valid coupon' do
         create(:coupon)
         fill_in('coupon', with: '123456')
-        click_on(t('carts.show.update_cart'))
+        click_on(t('ecomm.carts.show.update_cart'))
         expect(page).to have_css('p.font-16', text: '6.00')
         expect(page).to have_css('p.font-16', text: '0.60')
         expect(page).to have_css('strong.font-18', text: '5.40')
@@ -115,28 +116,28 @@ feature 'Cart page' do
 
   context 'proceed to checkout' do
     around do |example|
-      create_list(:book_with_authors_and_materials, 3)
+      create_list(:raw_product, 3)
       page.set_rack_session(cart: { 1 => 1, 2 => 2, 3 => 3 })
       example.run
       page.set_rack_session(cart: nil)
     end
 
     scenario 'with guest user redirects to login page', use_selenium: true do
-      visit cart_path
-      click_on(t('carts.show.checkout'))
+      visit ecomm.cart_path
+      click_on(t('ecomm.carts.show.checkout'))
       expect(page).to have_content(t('devise.failure.unauthenticated'))
     end
 
     context 'with logged in user' do
       background do
-        user = create(:user)
-        login_as(user, scope: :user)
-        visit cart_path
+        customer = create(:member)
+        login_as(customer, scope: :member)
+        visit ecomm.cart_path
       end
 
       scenario 'redirects to checkout address', use_selenium: true do
-        click_on(t('carts.show.checkout'))
-        expect(page).to have_css('h1', text: t('checkout.caption'))
+        click_on(t('ecomm.carts.show.checkout'))
+        expect(page).to have_css('h1', text: t('ecomm.checkout.caption'))
       end
 
       scenario 'updates books quantities before redirecting to checkout',
@@ -144,7 +145,7 @@ feature 'Cart page' do
         create(:coupon)
         fill_in('coupon', with: '123456')
         5.times { first('a.quantity-increment').click }
-        click_on(t('carts.show.checkout'))
+        click_on(t('ecomm.carts.show.checkout'))
         expect(page).to have_css('p.font-16', text: '11.00')
         expect(page).to have_css('p.font-16', text: '9.90')
       end
@@ -155,10 +156,10 @@ feature 'Cart page' do
         create(:coupon)
         fill_in('coupon', with: '123456')
         5.times { first('a.quantity-increment').click }
-        click_on(t('carts.show.checkout'))
+        click_on(t('ecomm.carts.show.checkout'))
         find('a.shop-link').click
         2.times { first('a.quantity-increment').click }
-        click_on(t('carts.show.checkout'))
+        click_on(t('ecomm.carts.show.checkout'))
         expect(page).to have_css('p.font-16', text: '13.00')
         expect(page).to have_css('p.font-16', text: '11.70')
       end
