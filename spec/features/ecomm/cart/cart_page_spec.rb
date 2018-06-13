@@ -137,6 +137,7 @@ feature 'Cart page' do
 
       scenario 'redirects to checkout address', use_selenium: true do
         click_on(t('ecomm.carts.show.checkout'))
+        sleep 200
         expect(page).to have_css('h1', text: t('ecomm.checkout.caption'))
       end
 

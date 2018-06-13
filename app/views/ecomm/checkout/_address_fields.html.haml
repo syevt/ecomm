@@ -3,13 +3,13 @@
   = fields.hidden_field(:address_type)
   - %i(first_name last_name street_address city zip).each do |property|
     .form-group{ class: ('has-error' if address.errors[property].any?)}
-      = fields.label(property, t("checkout.address.#{property}"),
+      = fields.label(property, t("ecomm.checkout.address.#{property}"),
         class: 'control-label font-weight-light')
       = fields.text_field(property, class: 'form-control',
-        placeholder: t("checkout.address.#{property}"))
+        placeholder: t("ecomm.checkout.address.#{property}"))
       %span.help-block= address.errors[property].first
   .form-group{ class: ('has-error' if address.errors[:country].any?)}
-    = fields.label(:country, t('checkout.address.country'),
+    = fields.label(:country, t('ecomm.checkout.address.country'),
       class: 'control-label font-weight-light')
     %select{class: 'form-control country-select',
       name: "#{entity}[#{type}][country]", 'data-target': "#{type}-phone"}
@@ -21,8 +21,8 @@
           'data-country-code': country.last}= country.first
     %span.help-block= address.errors[:country].first
   .form-group{ class: ('has-error' if address.errors[:phone].any?)}
-    = fields.label(:phone, t('checkout.address.phone'),
+    = fields.label(:phone, t('ecomm.checkout.address.phone'),
       class: 'control-label font-weight-light')
     = fields.phone_field(:phone, class: 'form-control',
-      id: "#{type}-phone", placeholder: t('checkout.address.phone_example'))
+      id: "#{type}-phone", placeholder: t('ecomm.checkout.address.phone_example'))
     %span.help-block= address.errors[:phone].first
