@@ -19,15 +19,6 @@ feature 'Cart page' do
       page.set_rack_session(cart: nil)
     end
 
-    scenario 'has correct number of books on cart icon' do
-      expect(page).to have_css(
-        '.visible-xs .shop-quantity',
-        visible: false, text: '3'
-      )
-      expect(page).to have_css('.hidden-xs .shop-quantity', text: '3')
-    end
-
-    # scenario 'has books in cart', use_selenium: true do
     scenario 'has books in cart' do
       expect(page).to have_css('p.general-title', count: 3)
       expect(first('p.general-title').text).to eq(@products.first.title)
@@ -74,11 +65,6 @@ feature 'Cart page' do
         accept_alert
         expect(page).to have_css('p.general-title', count: 2)
         expect(page).to have_css('strong.font-18', text: '3.00')
-        expect(page).to have_css(
-          '.visible-xs .shop-quantity',
-          visible: false, text: '2'
-        )
-        expect(page).to have_css('.hidden-xs .shop-quantity', text: '2')
       end
     end
 
@@ -137,7 +123,6 @@ feature 'Cart page' do
 
       scenario 'redirects to checkout address', use_selenium: true do
         click_on(t('ecomm.carts.show.checkout'))
-        sleep 200
         expect(page).to have_css('h1', text: t('ecomm.checkout.caption'))
       end
 
@@ -158,7 +143,7 @@ feature 'Cart page' do
         fill_in('coupon', with: '123456')
         5.times { first('a.quantity-increment').click }
         click_on(t('ecomm.carts.show.checkout'))
-        find('a.shop-link').click
+        visit ecomm.cart_path
         2.times { first('a.quantity-increment').click }
         click_on(t('ecomm.carts.show.checkout'))
         expect(page).to have_css('p.font-16', text: '13.00')
