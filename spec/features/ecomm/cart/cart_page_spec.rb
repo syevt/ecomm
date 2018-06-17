@@ -1,4 +1,3 @@
-# feature 'Cart page', use_selenium: true do
 feature 'Cart page' do
   context 'empty cart' do
     it 'has cart empty message' do
@@ -82,7 +81,7 @@ feature 'Cart page' do
         expect(page).to have_content(t('ecomm.coupon.expired'))
       end
 
-      scenario 'with coupon been already taken' do
+      scenario 'with coupon being already taken' do
         create(:coupon_with_order)
         fill_in('coupon', with: '123456')
         click_on(t('ecomm.carts.show.update_cart'))
@@ -114,20 +113,19 @@ feature 'Cart page' do
       expect(page).to have_content(t('devise.failure.unauthenticated'))
     end
 
-    context 'with logged in user' do
+    context 'with logged in user', use_selenium: true do
       background do
         customer = create(:member)
         login_as(customer, scope: :member)
         visit ecomm.cart_path
       end
 
-      scenario 'redirects to checkout address', use_selenium: true do
+      scenario 'redirects to checkout address' do
         click_on(t('ecomm.carts.show.checkout'))
         expect(page).to have_css('h1', text: t('ecomm.checkout.caption'))
       end
 
-      scenario 'updates books quantities before redirecting to checkout',
-               use_selenium: true do
+      scenario 'updates books quantities before redirecting to checkout' do
         create(:coupon)
         fill_in('coupon', with: '123456')
         5.times { first('a.quantity-increment').click }
@@ -137,8 +135,7 @@ feature 'Cart page' do
       end
 
       scenario 'updates books quantities when redirecting to checkout, '\
-        'then back to cart, changing quantities and again to checkout',
-               use_selenium: true do
+        'then back to cart, changing quantities and again to checkout' do
         create(:coupon)
         fill_in('coupon', with: '123456')
         5.times { first('a.quantity-increment').click }

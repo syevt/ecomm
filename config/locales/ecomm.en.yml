@@ -1,4 +1,25 @@
 en:
+  activemodel:
+    errors:
+      models:
+        address:
+          attributes:
+            first_name:
+              blank: 'Please enter your first name'
+            last_name:
+              blank: 'Please enter your last name'
+            street_address:
+              blank: 'Please enter your street address'
+            city:
+              blank: 'Please enter your city'
+            zip:
+              blank: 'Please enter zip'
+            country:
+              blank: 'Please choose a country'
+            phone:
+              blank: 'Please enter phone number in format +123456789101112'
+              invalid: 'Please enter a valid phone'
+
   ecomm:
     carts:
       product: 'Product'

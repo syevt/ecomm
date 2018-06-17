@@ -12,7 +12,11 @@ require 'wisper/rspec/matchers'
 
 Rails.backtrace_cleaner.remove_silencers!
 
-Dir["#{File.dirname(__FILE__)}/../spec/support/**/*.rb"].each { |f| require f }
+%w(support helpers).each do |folder|
+  Dir["#{File.dirname(__FILE__)}/../spec/#{folder}/**/*.rb"].each do |file|
+    require file
+  end
+end
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(
@@ -54,5 +58,6 @@ RSpec.configure do |config|
   config.include AbstractController::Translation
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Ecomm::TranslationHelpers, :include_translation_helpers
   # config.include Rails.application.routes.url_helpers
 end
