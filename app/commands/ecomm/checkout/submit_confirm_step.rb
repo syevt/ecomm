@@ -27,7 +27,9 @@ module Ecomm
       end
 
       def handle_error(flash)
-        flash[:alert] = I18n.t('checkout.submit_confirm.order_placement_error')
+        flash[:alert] = I18n.t(
+          'ecomm.checkout.submit_confirm.order_placement_error'
+        )
         publish(:error, checkout_confirm_path)
       end
     end

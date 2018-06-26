@@ -12,7 +12,7 @@ require 'wisper/rspec/matchers'
 
 Rails.backtrace_cleaner.remove_silencers!
 
-%w(support helpers).each do |folder|
+%w(support helpers **/shared_examples).each do |folder|
   Dir["#{File.dirname(__FILE__)}/../spec/#{folder}/**/*.rb"].each do |file|
     require file
   end
