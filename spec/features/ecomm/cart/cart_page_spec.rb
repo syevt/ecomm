@@ -18,7 +18,7 @@ feature 'Cart page' do
       page.set_rack_session(cart: nil)
     end
 
-    scenario 'has books in cart' do
+    scenario 'has books in cart', use_selenium: true do
       expect(page).to have_css('p.general-title', count: 3)
       expect(first('p.general-title').text).to eq(@products.first.title)
     end

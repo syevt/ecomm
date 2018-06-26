@@ -28,7 +28,7 @@ Capybara.register_driver :poltergeist do |app|
   )
 end
 
-Capybara.current_driver = :poltergeist
+Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
