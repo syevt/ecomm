@@ -1,4 +1,4 @@
-require_relative '../../../support/forms/new_address_form'
+require_relative '../../support/forms/new_address_form'
 
 feature 'Checkout address page' do
   context 'with guest user' do

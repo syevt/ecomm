@@ -1,7 +1,8 @@
 module Ecomm
   class BaseCommand
     include Wisper::Publisher
-    include Rails.application.routes.url_helpers
+    # include Rails.application.routes.url_helpers
+    include Ecomm::Engine.routes.url_helpers
 
     class << self
       def call(*args, &block)

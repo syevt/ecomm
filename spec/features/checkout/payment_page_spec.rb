@@ -1,4 +1,4 @@
-require_relative '../../../support/forms/new_credit_card_form'
+require_relative '../../support/forms/new_credit_card_form'
 
 feature 'Checkout payment page' do
   context 'with guest user' do

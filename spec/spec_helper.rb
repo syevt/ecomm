@@ -59,5 +59,6 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :feature
   config.include Ecomm::TranslationHelpers, :include_translation_helpers
+  config.include Ecomm::Engine.routes.url_helpers, type: :command
   # config.include Rails.application.routes.url_helpers
 end
