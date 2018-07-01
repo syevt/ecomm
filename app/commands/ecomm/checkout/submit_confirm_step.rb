@@ -20,7 +20,7 @@ module Ecomm
         %i(cart order discount coupon_id).each { |key| session.delete(key) }
         @mailer.order_email(@order).deliver
       rescue StandardError => error
-        Rails.logger.debug(error.inspect)
+        Rails.logger.error(error.inspect)
       ensure
         flash[:order_confirmed] = true
         publish(:ok, checkout_complete_path)
