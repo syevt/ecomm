@@ -8,6 +8,7 @@ require 'capybara/rspec'
 require 'capybara/dsl'
 require 'capybara/poltergeist'
 require 'rack_session_access/capybara'
+require 'shoulda/matchers'
 require 'wisper/rspec/matchers'
 
 Rails.backtrace_cleaner.remove_silencers!
@@ -58,6 +59,7 @@ RSpec.configure do |config|
   config.include AbstractController::Translation
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Shoulda::Matchers::ActiveModel, type: :form
   config.include Ecomm::TranslationHelpers, :include_translation_helpers
   config.include Ecomm::Engine.routes.url_helpers, type: :command
   # config.include Rails.application.routes.url_helpers
