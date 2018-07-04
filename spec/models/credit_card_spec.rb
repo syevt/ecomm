@@ -1,7 +1,5 @@
-require 'rails_helper'
-
-module Ecomm
-  RSpec.describe CreditCard, type: :model do
-    pending "add some examples to (or delete) #{__FILE__}"
+describe Ecomm::CreditCard, type: :model do
+  context 'association' do
+    it { is_expected.to belong_to(:order) }
   end
 end
