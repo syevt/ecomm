@@ -1,7 +1,6 @@
-require 'rails_helper'
-
-module Ecomm
-  RSpec.describe LineItem, type: :model do
-    pending "add some examples to (or delete) #{__FILE__}"
+describe Ecomm::LineItem, type: :model do
+  context 'association' do
+    it { is_expected.to belong_to(:order) }
+    it { is_expected.to belong_to(:product) }
   end
 end
