@@ -1,7 +1,5 @@
-require 'rails_helper'
-
-module Ecomm
-  RSpec.describe Coupon, type: :model do
-    pending "add some examples to (or delete) #{__FILE__}"
+describe Ecomm::Coupon, type: :model do
+  context 'association' do
+    it { is_expected.to have_one(:order) }
   end
 end
