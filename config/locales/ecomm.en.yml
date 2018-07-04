@@ -117,6 +117,13 @@ en:
         order: 'Order'
         back_to_store: 'Back to Store'
 
+    order_mailer:
+      order_email:
+        subject: "Order %{number} has been successfully placed!"
+        title: "Order %{number} has been added for processing"
+        body_html: "You can view your order processing progress %{href}"
+        here: 'here'
+
   number:
     currency:
       format:

@@ -18,7 +18,7 @@ describe Ecomm::OrderMailer, type: :mailer do
 
   it 'has correct subject' do
     expect(order_email.subject).to include(
-      t('notifier_mailer.order_email.subject', number: order.decorate.number)
+      t('ecomm.order_mailer.order_email.subject', number: order.decorate.number)
     )
   end
 
