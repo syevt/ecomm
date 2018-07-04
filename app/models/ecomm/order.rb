@@ -1,6 +1,6 @@
 module Ecomm
   class Order < ApplicationRecord
-    belongs_to :customer,optional: true, class_name: Ecomm.customer_class.to_s
+    belongs_to :customer, optional: true, class_name: Ecomm.customer_class.to_s
     belongs_to :coupon, optional: true
     belongs_to :shipment
     has_many :line_items, dependent: :destroy
