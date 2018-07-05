@@ -3,7 +3,7 @@ describe Ecomm::Checkout::ShowPaymentStep, type: :command do
     it 'with no order in session publishes :denied event and '\
     'redirects to delivery step' do
       command = described_class.new(double('BuildOrder', call: nil))
-      expect { command.call(nil) }.to(
+      expect { command.call({}) }.to(
         publish(:denied, checkout_delivery_path)
       )
     end
@@ -14,7 +14,7 @@ describe Ecomm::Checkout::ShowPaymentStep, type: :command do
         attributes_for(:order, customer: build(:member))
       )
       command = described_class.new(double('BuildOrder', call: order))
-      expect { command.call(nil) }.to(
+      expect { command.call({}) }.to(
         publish(:denied, checkout_delivery_path)
       )
     end
@@ -33,13 +33,13 @@ describe Ecomm::Checkout::ShowPaymentStep, type: :command do
       let(:build_order) { double('BuildOrder', call: order) }
 
       it 'assigns empty CreditCardForm instance to order' do
-        described_class.new(build_order).call(nil)
+        described_class.new(build_order).call({})
         expect(order.card).to be_truthy
       end
 
       it 'publishes :ok event passing order variable' do
         command = described_class.new(build_order)
-        expect { command.call(nil) }.to publish(:ok, order: order)
+        expect { command.call({}) }.to publish(:ok, order: order)
       end
     end
   end
