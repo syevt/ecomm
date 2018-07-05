@@ -9,7 +9,7 @@ module Ecomm
         @order_updater = order_updater
       end
 
-      def call(session, params, _flash)
+      def call(session, params, *_args)
         order = @order_updater.call(session, params.require(:order).permit!.to_h)
         return publish(:ok, checkout_confirm_path) if order&.card&.valid?
         publish(:error, checkout_payment_path)

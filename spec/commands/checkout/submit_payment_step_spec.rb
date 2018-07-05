@@ -1,11 +1,13 @@
 describe Ecomm::Checkout::SubmitPaymentStep, type: :command do
   describe '#call' do
-    let(:args) { [nil, spy('params'), nil] }
+    let(:params) { spy('params') }
 
     it 'with no order in session publishes :error and redirects to '\
     'show payment step' do
       command = described_class.new(double('UpdateOrder', call: nil))
-      expect { command.call(*args) }.to publish(:error, checkout_payment_path)
+      expect { command.call({}, params) }.to(
+        publish(:error, checkout_payment_path)
+      )
     end
 
     it 'with session order having no card set publishes :error and '\
@@ -13,7 +15,9 @@ describe Ecomm::Checkout::SubmitPaymentStep, type: :command do
       command = described_class.new(
         double('UpdateOrder', call: Ecomm::OrderForm.new)
       )
-      expect { command.call(*args) }.to publish(:error, checkout_payment_path)
+      expect { command.call({}, params) }.to(
+        publish(:error, checkout_payment_path)
+      )
     end
 
     it 'with session order having invalid card publishes :error and '\
@@ -22,7 +26,9 @@ describe Ecomm::Checkout::SubmitPaymentStep, type: :command do
         card: Ecomm::CreditCardForm.from_model(build(:credit_card, number: ''))
       )
       command = described_class.new(double('UpdateOrder', call: order))
-      expect { command.call(*args) }.to publish(:error, checkout_payment_path)
+      expect { command.call({}, params) }.to(
+        publish(:error, checkout_payment_path)
+      )
     end
 
     it 'with session order having valid card publishes :ok and '\
@@ -31,7 +37,9 @@ describe Ecomm::Checkout::SubmitPaymentStep, type: :command do
         card: Ecomm::CreditCardForm.from_model(build(:credit_card))
       )
       command = described_class.new(double('UpdateOrder', call: order))
-      expect { command.call(*args) }.to publish(:ok, checkout_confirm_path)
+      expect { command.call({}, params) }.to(
+        publish(:ok, checkout_confirm_path)
+      )
     end
   end
 end
