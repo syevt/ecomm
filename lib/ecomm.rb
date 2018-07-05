@@ -16,11 +16,5 @@ module Ecomm
     def product_class
       @@product_class.constantize
     end
-
-    def get_customer_id(session)
-      eval <<-RUBY, binding, __FILE__, __LINE__ + 1
-        session#{Ecomm.session_customer_id_key}
-      RUBY
-    end
   end
 end
