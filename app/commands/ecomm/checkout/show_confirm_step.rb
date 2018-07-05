@@ -9,7 +9,7 @@ module Ecomm
         @builder, @line_items_builder = args
       end
 
-      def call(session, _flash)
+      def call(session, *_args)
         order = @builder.call(session)
         return publish(:denied, checkout_payment_path) unless order&.card
         order.credit_card = CreditCard.new(order.card.to_h).decorate
