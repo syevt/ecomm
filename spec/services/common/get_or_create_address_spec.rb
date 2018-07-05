@@ -1,7 +1,6 @@
 describe Ecomm::Common::GetOrCreateAddress do
   describe '#call' do
-    let(:member) { create(:member_with_address) }
-    let(:session) { { 'warden.user.member.key' => [[member.id]] } }
+    let(:session) { {} }
 
     shared_examples 'returns FormObject' do
       example 'returns AddressForm instance' do
@@ -12,11 +11,10 @@ describe Ecomm::Common::GetOrCreateAddress do
     context 'with non-valid address in session' do
       let(:session) do
         {
-          'warden.user.member.key' => [[member.id]],
           address: attributes_for(:address, zip: '27#&*').stringify_keys
         }
       end
-      let(:address) { described_class.call(session, 'billing') }
+      let(:address) { described_class.call(session, 'billing', 1) }
 
       include_examples 'returns FormObject'
 
@@ -26,7 +24,8 @@ describe Ecomm::Common::GetOrCreateAddress do
     end
 
     context 'with existing address' do
-      let(:address) { described_class.call(session, 'billing') }
+      let(:member) { create(:member_with_address) }
+      let(:address) { described_class.call(session, 'billing', member.id) }
 
       include_examples 'returns FormObject'
 
@@ -36,7 +35,7 @@ describe Ecomm::Common::GetOrCreateAddress do
     end
 
     context 'with non-existent address' do
-      let(:address) { described_class.call(session, 'shipping') }
+      let(:address) { described_class.call(session, 'shipping', 1) }
 
       include_examples 'returns FormObject'
 

@@ -9,11 +9,10 @@ module Ecomm
         @get_address_from_session = get_address_from_session
       end
 
-      def call(session, address_type)
+      def call(session, address_type, customer_id)
         address_exists = session[:address] &&
                          session[:address]['address_type'] == address_type
         return @get_address_from_session.call(session) if address_exists
-        customer_id = Ecomm.get_customer_id(session)
         address = Address.find_by(customer_id: customer_id,
                                   address_type: address_type)
         return AddressForm.from_model(address) if address
