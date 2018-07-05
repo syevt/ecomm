@@ -9,7 +9,7 @@ module Ecomm
         @build_order, @mailer = args
       end
 
-      def call(session, _params, flash)
+      def call(session, _params, flash, _customer_id)
         @order = @build_order.call(session)
         @order.save ? handle_success(session, flash) : handle_error(flash)
       end
