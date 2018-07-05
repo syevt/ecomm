@@ -15,12 +15,11 @@ describe Ecomm::Checkout::BuildCompletedOrder do
           'shipment_id' => 32,
           'subtotal' => 10.0,
           'card' => attributes_for(:credit_card)
-        },
-        'warden.user.member.key' => [[1]]
+        }
       }
     end
 
-    let(:order) { service.call(session) }
+    let(:order) { service.call(session, 1) }
 
     it 'returns Ecomm::Order instance' do
       expect(order).to be_instance_of(Ecomm::Order)

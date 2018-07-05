@@ -10,9 +10,9 @@ module Ecomm
         @build_addresses, @build_line_items = args
       end
 
-      def call(session)
+      def call(session, customer_id)
         order_hash = session[:order]
-        Order.new(customer_id: Ecomm.get_customer_id(session),
+        Order.new(customer_id: customer_id,
                   coupon_id: session[:coupon_id],
                   shipment_id: order_hash['shipment_id'],
                   subtotal: order_hash['subtotal']).tap do |order|
