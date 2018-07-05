@@ -12,13 +12,14 @@ module Ecomm
         @get_totals, @builder, @initializer, @get_countries = args
       end
 
-      def call(session, *_args)
+      def call(session, _flash, customer_id)
         return publish(:denied, cart_path) if session[:cart].blank?
         totals = @get_totals.call(session)
         session[:items_total], session[:order_subtotal] = totals
         publish(
           :ok,
-          order: @builder.call(session) || @initializer.call(session),
+          order: @builder.call(session) ||
+                 @initializer.call(session, customer_id),
           countries: @get_countries.call
         )
       end

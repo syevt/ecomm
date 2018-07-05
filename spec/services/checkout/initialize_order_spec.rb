@@ -8,7 +8,7 @@ describe Ecomm::Checkout::InitializeOrder do
 
     let(:session) { { items_total: 10.0, order_subtotal: 9.0 } }
 
-    let(:order) { service.call(session) }
+    let(:order) { service.call(session, 1) }
 
     it 'returns OrderForm instance' do
       expect(order).to be_instance_of(Ecomm::OrderForm)
@@ -33,7 +33,7 @@ describe Ecomm::Checkout::InitializeOrder do
     end
 
     it 'adds initialized order to session' do
-      service.call(session)
+      service.call(session, 1)
       expect(session[:order]).to be_truthy
     end
   end
