@@ -6,3 +6,4 @@ spec/dummy/tmp/
 spec/dummy/public/uploads
 coverage/*
 Session.vim
+tags
