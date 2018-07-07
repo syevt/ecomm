@@ -5,14 +5,14 @@ module Ecomm
         new(Common::GetOrCreateAddress.build)
       end
 
-      def initialize(get_or_create_address)
-        @get_or_create_address = get_or_create_address
+      def initialize(get_create_address)
+        @get_create_address = get_create_address
       end
 
-      def call(session)
+      def call(session, customer_id)
         OrderForm.new(
-          billing: @get_or_create_address.call(session, 'billing'),
-          shipping: @get_or_create_address.call(session, 'shipping'),
+          billing: @get_create_address.call(session, 'billing', customer_id),
+          shipping: @get_create_address.call(session, 'shipping', customer_id),
           items_total: session[:items_total],
           subtotal: session[:order_subtotal]
         ).tap { |order| session[:order] = order }

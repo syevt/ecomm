@@ -9,7 +9,7 @@ module Ecomm
         @builder = builder
       end
 
-      def call(session, _flash)
+      def call(session, *_args)
         order = @builder.call(session)
         return publish(:denied, checkout_address_path) unless order
         shipments = Shipment.all

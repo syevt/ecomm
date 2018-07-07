@@ -8,7 +8,7 @@ describe Ecomm::Checkout::SubmitConfirmStep, type: :command do
 
     let(:mailer) { spy('OrderMailer') }
     let(:flash) { {} }
-    let(:args) { [session, nil, flash] }
+    let(:args) { [session, {}, flash, 1] }
 
     let(:command) do
       described_class.new(double('BuildCompletedOrder', call: order), mailer)

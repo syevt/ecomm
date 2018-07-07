@@ -8,7 +8,7 @@ module Ecomm
     CHECKOUT_STEPS.each do |step|
       define_method(step) do
         command = "Ecomm::Checkout::Show#{step.capitalize}Step".constantize
-        command.call(session, flash) do
+        command.call(session, flash, current_customer.id) do
           on(:ok) { |step_variables| expose(step_variables) }
           on(:denied) { |failure_path| redirect_to(failure_path) }
         end
@@ -18,7 +18,7 @@ module Ecomm
 
       define_method("submit_#{step}") do
         command = "Ecomm::Checkout::Submit#{step.capitalize}Step".constantize
-        command.call(session, params, flash) do
+        command.call(session, params, flash, current_customer.id) do
           on(:ok) { |ok_path| redirect_to(ok_path) }
           on(:error) { |error_path| redirect_to(error_path) }
         end

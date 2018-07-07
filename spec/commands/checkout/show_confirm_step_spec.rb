@@ -3,7 +3,7 @@ describe Ecomm::Checkout::ShowConfirmStep, type: :command do
     it 'with no order in session publishes :denied event and '\
     'redirects to payment step' do
       command = described_class.new(double('BuildOrder', call: nil), nil)
-      expect { command.call(nil, nil) }.to(
+      expect { command.call({}) }.to(
         publish(:denied, checkout_payment_path)
       )
     end
@@ -14,7 +14,7 @@ describe Ecomm::Checkout::ShowConfirmStep, type: :command do
         attributes_for(:order, customer: build(:member))
       )
       command = described_class.new(double('BuildOrder', call: order), nil)
-      expect { command.call(nil, nil) }.to(
+      expect { command.call({}) }.to(
         publish(:denied, checkout_payment_path)
       )
     end
@@ -35,7 +35,7 @@ describe Ecomm::Checkout::ShowConfirmStep, type: :command do
       it 'builds order`s credit card based on CreditCardForm instance' do
         described_class.new(
           double('BuildOrder', call: order), line_items_builder
-        ).call({}, nil)
+        ).call({})
         expect(order.credit_card).to be_truthy
       end
 
@@ -49,7 +49,7 @@ describe Ecomm::Checkout::ShowConfirmStep, type: :command do
             double('BuildOrder', call: order), line_items_builder
           )
 
-          expect { command.call({}, nil) }.to(
+          expect { command.call({}) }.to(
             publish(:ok, order: order, billing: order.billing,
                          shipping: order.billing, line_items: [1, 2])
           )
@@ -64,7 +64,7 @@ describe Ecomm::Checkout::ShowConfirmStep, type: :command do
             double('BuildOrder', call: order), line_items_builder
           )
 
-          expect { command.call({}, nil) }.to(
+          expect { command.call({}) }.to(
             publish(:ok, order: order, billing: order.billing,
                          shipping: order.shipping, line_items: [1, 2])
           )

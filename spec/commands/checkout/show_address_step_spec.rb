@@ -3,14 +3,14 @@ describe Ecomm::Checkout::ShowAddressStep, type: :command do
     context 'with cart blank or empty' do
       it 'with nil cart publishes :denied event and redirects to cart' do
         session = { cart: nil }
-        expect { described_class.call(session, nil) }.to(
+        expect { described_class.call(session, {}, 1) }.to(
           publish(:denied, cart_path)
         )
       end
 
       it 'with empty cart publishes :denied event and redirects to cart' do
         session = { cart: {} }
-        expect { described_class.call(session, nil) }.to(
+        expect { described_class.call(session, {}, 1) }.to(
           publish(:denied, cart_path)
         )
       end
@@ -30,7 +30,7 @@ describe Ecomm::Checkout::ShowAddressStep, type: :command do
         builder = double('BuildOrder', call: session_order)
         command = described_class.new(get_totals, builder, initializer,
                                       get_countries)
-        command.call(session, nil)
+        command.call(session, {}, 1)
         expect(session[:items_total]).to eq(5)
         expect(session[:order_subtotal]).to eq(7)
       end
@@ -41,7 +41,7 @@ describe Ecomm::Checkout::ShowAddressStep, type: :command do
         builder = double('BuildOrder', call: session_order)
         command = described_class.new(get_totals, builder, initializer,
                                       get_countries)
-        expect { command.call(session, nil) }.to(
+        expect { command.call(session, {}, 1) }.to(
           publish(:ok, order: session_order, countries: countries)
         )
       end
@@ -51,7 +51,7 @@ describe Ecomm::Checkout::ShowAddressStep, type: :command do
         builder = double('BuildOrder', call: nil)
         command = described_class.new(get_totals, builder, initializer,
                                       get_countries)
-        expect { command.call(session, nil) }.to(
+        expect { command.call(session, {}, 1) }.to(
           publish(:ok, order: initialized_order, countries: countries)
         )
       end
