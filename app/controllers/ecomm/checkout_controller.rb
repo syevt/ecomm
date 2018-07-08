@@ -2,10 +2,12 @@ module Ecomm
   class CheckoutController < ApplicationController
     include Rectify::ControllerHelpers
 
-    before_action(:authenticate_customer)
-    before_action(-> { present CheckoutPresenter.new }, only: CHECKOUT_STEPS)
+    steps = Ecomm.checkout_steps
 
-    CHECKOUT_STEPS.each do |step|
+    before_action(:authenticate_customer)
+    before_action(-> { present CheckoutPresenter.new }, only: steps)
+
+    steps.each do |step|
       define_method(step) do
         command = "Ecomm::Checkout::Show#{step.capitalize}Step".constantize
         command.call(session, flash, current_customer.id) do
@@ -14,7 +16,7 @@ module Ecomm
         end
       end
 
-      next if step == CHECKOUT_STEPS.last
+      next if step == steps.last
 
       define_method("submit_#{step}") do
         command = "Ecomm::Checkout::Submit#{step.capitalize}Step".constantize

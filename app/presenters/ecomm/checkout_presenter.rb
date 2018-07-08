@@ -1,15 +1,15 @@
 module Ecomm
   class CheckoutPresenter < Rectify::Presenter
     def steps
-      CHECKOUT_STEPS
+      Ecomm.checkout_steps
     end
 
     def previous?(step, action)
-      CHECKOUT_STEPS.index(step) < CHECKOUT_STEPS.index(action.to_sym)
+      steps.index(step) < steps.index(action.to_sym)
     end
 
     def current?(step, action)
-      CHECKOUT_STEPS.index(step) == CHECKOUT_STEPS.index(action.to_sym)
+      steps.index(step) == steps.index(action.to_sym)
     end
   end
 end
