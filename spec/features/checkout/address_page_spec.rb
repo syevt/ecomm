@@ -78,9 +78,8 @@ feature 'Checkout address page' do
                 )
               end
 
-              scenario "with 'use billing' checked goes to delivery page",
-                       use_selenium: true do
-                find('i.fa-check').click
+              scenario "with 'use billing' checked goes to delivery page" do
+                check(t('ecomm.checkout.address.use_billing'), visible: false)
                 click_on(t('ecomm.checkout.save_continue'))
                 expect(page).to have_css(
                   'h3.general-subtitle',

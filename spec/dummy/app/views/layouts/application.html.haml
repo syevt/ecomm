@@ -12,7 +12,6 @@
     = yield :head
   %body{id: controller_name}
     .bs-wrapper
-      -# = render('layouts/header')
       - if flash[:alert]
         .container
           .alert.alert-danger.alert-dismissable{role: 'alert'}
@@ -28,5 +27,3 @@
               %span{'aria-hidden': 'true'} &times;
             = flash[:notice]
       = yield
-    -# = render('layouts/footer')
-    %script{src: 'https://use.fontawesome.com/67602d7308.js'}

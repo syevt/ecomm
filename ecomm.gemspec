@@ -17,9 +17,11 @@ Gem::Specification.new do |s|
 
   s.test_files = Dir['spec/**/*']
 
+  s.add_dependency 'bootstrap-sass'
   s.add_dependency 'coffee-rails'
   s.add_dependency 'countries'
   s.add_dependency 'draper'
+  s.add_dependency 'font-awesome-rails'
   s.add_dependency 'hamlit'
   s.add_dependency 'hamlit-rails'
   s.add_dependency 'i18n-js'
@@ -28,9 +30,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 5.1.6'
   s.add_dependency 'rails-i18n'
   s.add_dependency 'rectify'
+  s.add_dependency 'sass-rails'
   s.add_dependency 'wisper'
 
-  s.add_development_dependency 'bootstrap-sass'
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'carrierwave'
   s.add_development_dependency 'database_cleaner'
@@ -43,7 +45,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rack_session_access'
   s.add_development_dependency 'rails-controller-testing'
   s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'shoulda-matchers', '~> 3.1'
   s.add_development_dependency 'simplecov'
