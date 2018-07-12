@@ -1,15 +1,19 @@
 require 'bootstrap-sass'
 require 'countries/global'
-require 'carrierwave'
-require 'devise'
 require 'draper'
 require 'font-awesome-rails'
+require 'generator_spec'
 require 'hamlit'
 require 'i18n-js'
 require 'jquery-rails'
 require 'rectify'
 require 'sass-rails'
 require 'wisper'
+
+if Rails.env == 'test'
+  require 'carrierwave'
+  require 'devise'
+end
 
 module Ecomm
   class Engine < ::Rails::Engine

@@ -1,6 +1,4 @@
 Ecomm.setup do |config|
-  config.checkout_steps = [:address, :delivery, :payment, :confirm, :complete]
-
   # Models
   config.customer_class = 'Member'
   config.product_class = 'RawProduct'
