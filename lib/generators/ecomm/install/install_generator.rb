@@ -7,9 +7,9 @@ module Ecomm
       product_class: 'Book',
       current_customer_method: 'current_user',
       signin_path: '/users/sign_in',
-      catalog_path: '/home/index',
       flash_login_return_to: 'user_return_to',
       flash_not_authenticated_message_key: 'devise.failure.unauthenticated',
+      catalog_path: '/home/index',
       completed_order_url_helper_method: 'order_url'
     }
 

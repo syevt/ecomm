@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   get 'home/index'
   resources :orders, only: :show
 
-  mount Ecomm::Engine => "/ecomm"
+  mount Ecomm::Engine => '/ecomm'
 end
