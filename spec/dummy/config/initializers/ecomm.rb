@@ -5,8 +5,8 @@ Ecomm.setup do |config|
 
   # Authentication
   config.current_customer_method = 'current_member'
-  config.flash_login_return_to = 'member_return_to' # or user_return_to ???
-  config.flash_not_authenticated_message_key = 'devise.failure.unauthenticated'
+  config.flash_login_return_to = 'member_return_to'
+  config.i18n_unuathenticated_key = 'devise.failure.unauthenticated'
 
   # Paths & urls
   config.signin_path = '/members/sign_in'

@@ -1,6 +1,8 @@
 module Ecomm
   class InstallGenerator < Rails::Generators::Base
-    desc 'Generates Ecomm initializer with settings based on user input'
+    desc 'Sets up basic Ecomm configuration based on user input'
+
+    source_root(__dir__)
 
     @@settings = {
       customer_class: 'User',
@@ -8,7 +10,7 @@ module Ecomm
       current_customer_method: 'current_user',
       signin_path: '/users/sign_in',
       flash_login_return_to: 'user_return_to',
-      flash_not_authenticated_message_key: 'devise.failure.unauthenticated',
+      i18n_unuathenticated_key: 'devise.failure.unauthenticated',
       catalog_path: '/home/index',
       completed_order_url_helper_method: 'order_url'
     }
@@ -100,7 +102,7 @@ module Ecomm
       @@settings[:flash_login_return_to] = answer if answer.present?
     end
 
-    def flash_not_authenticated_message_key
+    def i18n_unuathenticated_key
       prompt = <<~HEREDOC.strip
         #{@@separator}
         Enter your authentication engine`s I18n translation key that holds the
@@ -108,7 +110,7 @@ module Ecomm
         (default is Devise`s devise.failure.unauthenticated):
       HEREDOC
       answer = ask(prompt)
-      @@settings[:flash_not_authenticated_message_key] = answer if answer.present?
+      @@settings[:i18n_unuathenticated_key] = answer if answer.present?
     end
 
     def completed_order_url_helper_method
@@ -136,6 +138,47 @@ module Ecomm
 
         file << "\nend"
       end
+    end
+
+    def copy_migrations
+      rake('ecomm:install:migrations')
+      rake('db:migrate SCOPE=ecomm') if yes?('Run Ecomm migrations right now?')
+    end
+
+    def patch_customer
+      klass = @@settings[:customer_class]
+      path = "app/models/#{klass.downcase}.rb"
+      return if File.foreach(path).grep(/has_many :addresses/).any?
+      inject_into_class(path, klass.constantize) do
+        <<-HEREDOC
+  has_many :addresses, class_name: 'Ecomm::Address',
+                       foreign_key: :customer_id, dependent: :destroy
+        HEREDOC
+      end
+    end
+
+    def copy_js
+      path = 'app/assets/javascripts/application.js'
+      line = '//= require ecomm/application'
+      return if File.foreach(path).grep(line).any?
+      insert_into_file(path, before: '//= require_tree .') { "#{line}\n" }
+    end
+
+    def copy_css
+      path = 'app/assets/stylesheets/application.scss'
+      line = '*= require ecomm/style'
+      return if File.foreach(path).grep(line).any?
+      insert_into_file(path, before: '*= require_tree .') { "#{line}\n" }
+    end
+
+    def copy_translations
+      directory('../../../config/locales', 'config/locales')
+    end
+
+    def mount_routes
+      engine = 'Ecomm'
+      return if File.foreach('config/routes.rb').grep(/#{engine}/).any?
+      route "mount #{engine}::Engine => '/store'"
     end
   end
 end

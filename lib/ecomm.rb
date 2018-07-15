@@ -2,9 +2,9 @@ require 'ecomm/engine'
 
 module Ecomm
   mattr_accessor :checkout_steps, :customer_class, :product_class,
-                 :current_customer_method, :completed_order_url_helper_method,
-                 :flash_login_return_to, :flash_not_authenticated_message_key,
-                 :signin_path, :catalog_path
+                 :current_customer_method, :signin_path,
+                 :flash_login_return_to, :i18n_unuathenticated_key,
+                 :catalog_path, :completed_order_url_helper_method
 
   @@checkout_steps = [:address, :delivery, :payment, :confirm, :complete]
 

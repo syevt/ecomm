@@ -1,7 +1,7 @@
 # Ecomm
-Ecomm is a Rails Engine that provides a shopping cart and checkout functionality to your web app to turn it into an online store.
+Ecomm is a Rails Engine that provides a shopping cart and checkout functionality to your web app to turn it into an online store. The cart has the ability to show, add or remove the chosen products and also to change their quantities. The checkout appears as a 5-step wizard allowing a user to consequtively submit his 1) addresses, 2) desired shipment method, 3) payment details, 4) confirmation and 5) it shows the complete order page with all the details and sends the corresponding email.
 
-## Installation & configuration
+## Installation
 To start add this line to your application's Gemfile:
 
 ```ruby
@@ -12,42 +12,41 @@ And then execute:
 ```bash
 $ bundle
 ```
-Next you will need to make a few configuration steps to put things to work.
-1. Run `install` generator with:
+Next run the `install` generator with:
 ```bash
 $ rails generate ecomm:install
 ```
-You will be asked a bunch of questions based on which you will get your Ecomm configuration saved in `config/initializers/ecomm.rb` This file may be edited afterwards if there is a need to change a particular setting. So, here they are step by step.
+You will be asked a bunch of questions based on which you will get your Ecomm configuration saved in `config/initializers/ecomm.rb`. This file may be edited afterwards if there is a need to change a particular setting. So, here they are step by step.
 
-  1.1 The model representing a user in your app. Typically, it is `User` and that's the default option. In the initializer it adds:
+  1. The model representing a user in your app. Typically, it is `User` and that's the default option. In the initializer it adds:
   ```ruby
   config.customer_class = 'User'
   ```
-  1.2 The model representing a product in your app:
+  2. The model representing a product in your app:
   ```ruby
   config.product_class = 'Book'
   ```
-  1.3 Ecomm does not have its own authentication system. It's totally your choice what to use: be it Devise, Authlogic, Clearance, Sorcery or even your custom one. You just need to provide some key points to make Ecomm use your authentication engine. First of them is the name of the method that returns the current authenticated user (if there is one) in your app. For instance, Devise's one is called `current_user` (considering the model is `User`) and that is used by default:
+  3. Ecomm does not have its own authentication system. It's totally your choice what to use: be it Devise, Authlogic, Clearance, Sorcery or even your custom one. You just need to provide some key points to make Ecomm use your authentication engine. First of them is the name of the method that returns the current authenticated user (if there is one) in your app. For instance, Devise's one is called `current_user` (considering the model is `User`) and that is used by default:
   ```ruby
   config.current_customer_method = 'current_user'
   ```
-  1.4 Next you will have to provide the path for an unauthenticated user to sign in as any checkot process presumes existing a particular customer. The default option is Devise's `/users/sign_in`:
+  4. Next you will have to provide the path for an unauthenticated user to sign in as any checkot process presumes existing a particular customer. The default option is Devise's `/users/sign_in`:
   ```ruby
   config.signin_path = '/users/sign_in'
   ```
-  1.5 The name of the flash key which keeps the current path. This is used by your authentication engine on friendly forwarding: when an authenticated user tries to hit the page that requires authentication he will be forwarded to the sign in page first and this key holds the target page path to forward to after a successful sign in. The default one is, again, for Devise:
+  5. The name of the flash key which keeps the current path. This is used by your authentication engine on friendly forwarding: when an authenticated user tries to hit the page that requires authentication he will be forwarded to the sign in page first and this key holds the target page path to forward to after a successful sign in. The default one is, again, for Devise:
   ```ruby
   config.flash_login_return_to = 'user_return_to'
   ```
-  1.6 The last option regarding authentication is the `I18n` key that holds the translation of the *'Authentication required'* message shown on the sign in page on friendly forwarding. The default is Devise's:
+  6. The last option regarding authentication is the `I18n` key that holds the translation of the *'Authentication required'* message shown on the sign in page on friendly forwarding. The default is Devise's:
   ```ruby
-  config.flash_not_authenticated_message_key = 'devise.failure.unauthenticated'
+  config.i18n_unuathenticated_key = 'devise.failure.unauthenticated'
   ```
-  1.7 Path to your products' catalog. Actually, it may be any path you want to forward a user after a completed checkout. This path is also used in the link on the cart page when the cart is empty. The default option is pretty arbitrary:
+  7. Path to your products' catalog. Actually, it may be any path you want to forward a user after a completed checkout. This path is also used in the link on the cart page when the cart is empty. The default option is pretty arbitrary:
   ```ruby
   config.catalog_path = '/home/index'
   ```
-  1.8 Ecomm mailer sends an email to the user after the order is completed. Among other details it contains a link pointing to the order detais in your app, so the user may see the order's details, totals, status, etc. This means there should exist a kind of orders controller in your app. This setting requires the appropriate route helper's name. `order_url` is used as default:
+  8. Ecomm mailer sends an email to the user after the order is completed. Among other details it contains a link pointing to the order detais in your app, so the user may see the order's details, totals, status, etc. This means there should exist a kind of orders controller in your app. This setting requires the appropriate route helper's name. `order_url` is used as default:
   ```ruby
   config.completed_order_url_helper_method = 'order_url'
   ```
@@ -55,13 +54,21 @@ You will be asked a bunch of questions based on which you will get your Ecomm co
   ```bash
   $ rails generate ecomm:views
   ```
-  and remove the order url from the order mailer's template.
+  and remove the order link from the order mailer's template.
 
-2. Run the Ecomm migrations copied by the installer:
+  9. The final question is whether you want to run the copied Ecomm migrations right away. If there is a reason not to do so do not forget to run them later with:
 ```bash
-$ rails db:migrate
+$ rails db:migrate SCOPE=ecomm
 ```
-3. Ecomm presumes your `Product` model to have the following fields - `main_image`, `title`, `description` and `price` - since this is how `Product` is bound to the cart and checkout views. If you have those fields named in some other way you should set the connection with the `alias_attribute` method:
+
+Besides the above steps the installer will also copy Ecomm translations, require assets, mount routes with the default path prefix `/store` and patch `User` model by adding this lines:
+```ruby
+  has_many :addresses, class_name: 'Ecomm::Address',
+                       foreign_key: :customer_id, dependent: :destroy
+```
+This is needed because Ecomm tries to be smart so when a user comes to the first checkout step that requires addresses those addresses are first looked up as associated with the user. This means you might use `Ecomm::Address` to store a user's default addresses, say, as a part of user settings.
+## Configuration
+Ecomm expects your `Product` model to have the following fields - `main_image`, `title`, `description` and `price` - since this is how `Product` is bound to the cart and checkout views. If you have those fields named in some other way you should set the connection with the `alias_attribute` method:
 ``` ruby
   class MyProduct < ApplicationRecord
     #...
@@ -73,7 +80,7 @@ $ rails db:migrate
   end
   ```
 
-4. Mount the Ecomm routes with the desired path prefix, say, `/store` for instance:
+The default path prefix `/store` may be changed in `config/routes.rb`:
 ```ruby
   Rails.application.routes.draw do
     # ...
@@ -81,6 +88,12 @@ $ rails db:migrate
     # ...
   end
 ```
+If there is a need to change translations feel free to edit the copied `config/locales/ecomm.en.yml`.
 
+To generate Ecomm views (in a case you want to apply some custom styling or change layout, or even to use the partials elsewhere) just run:
+```bash
+$ rails generate ecomm:views
+```
+and find them in `app/views/ecomm`.
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
