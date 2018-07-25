@@ -165,7 +165,8 @@ module Ecomm
     end
 
     def copy_css
-      path = 'app/assets/stylesheets/application.scss'
+      name = 'app/assets/stylesheets/application.'
+      path = File.file?("#{name}css") ? "#{name}css" : "#{name}scss"
       line = '*= require ecomm/style'
       return if File.foreach(path).grep(line).any?
       insert_into_file(path, before: '*= require_tree .') { "#{line}\n" }
