@@ -3,8 +3,8 @@ module Ecomm
     before_action { session[:cart] ||= Hash.new(0) }
 
     def show
-      @line_items = Common::BuildLineItemsFromCart.call(session[:cart])
-      totals = Cart::CalculateCartTotals.call(session)
+      @line_items = Ecomm::Common::BuildLineItemsFromCart.call(session[:cart])
+      totals = Ecomm::Cart::CalculateCartTotals.call(session)
       @items_total, @order_subtotal, @discount = totals
       session[:items_total] = @items_total
       session[:order_subtotal] = @order_subtotal
@@ -23,7 +23,7 @@ module Ecomm
     private
 
     def handle_coupon
-      Cart::HandleCoupon.call(params[:coupon]) do
+      Ecomm::Cart::HandleCoupon.call(params[:coupon]) do
         on(:error) do |error_message|
           flash[:alert] = error_message
           flash.keep
