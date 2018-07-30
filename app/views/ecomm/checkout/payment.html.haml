@@ -39,7 +39,7 @@
               placement: 'top'}} |
             %span.help-block= @order.card.errors[:cvv].first
     .general-text-align
-      %p.in-gold-500.font-18= t('carts.show.order_summary')
+      %p.in-gold-500.font-18= t('ecomm.carts.show.order_summary')
       %table.general-summary-table
         = render('delivery_totals')
     = f.submit(t('ecomm.checkout.save_continue'),
