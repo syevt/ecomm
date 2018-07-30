@@ -14,7 +14,7 @@
     %select{class: 'form-control country-select',
       name: "#{entity}[#{type}][country]", 'data-target': "#{type}-phone"}
       %option{value: '', hidden: true, selected: true}= |
-        t('checkout.address.select_country') |
+        t('ecomm.checkout.address.select_country') |
       - @countries.each do |country|
         %option{value: country.first, class: "#{type}",
           selected: country.first == address.country,
