@@ -2,7 +2,7 @@ module Ecomm
   module Checkout
     class InitializeOrder < BaseService
       def self.build
-        new(Common::GetOrCreateAddress.build)
+        new(Ecomm::Common::GetOrCreateAddress.build)
       end
 
       def initialize(get_create_address)
