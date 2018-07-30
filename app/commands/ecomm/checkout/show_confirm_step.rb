@@ -2,7 +2,8 @@ module Ecomm
   module Checkout
     class ShowConfirmStep < BaseCommand
       def self.build
-        new(Checkout::BuildOrder.build, Common::BuildLineItemsFromCart.build)
+        new(Checkout::BuildOrder.build,
+            Ecomm::Common::BuildLineItemsFromCart.build)
       end
 
       def initialize(*args)
