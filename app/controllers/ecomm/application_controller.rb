@@ -8,8 +8,6 @@ module Ecomm
       send(Ecomm.current_customer_method)
     end
 
-    private
-
     def authenticate_customer
       return if current_customer
       session[Ecomm.flash_login_return_to] = request.fullpath
