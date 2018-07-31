@@ -1,5 +1,5 @@
 module Ecomm
-  class CheckoutController < ApplicationController
+  class CheckoutController < Ecomm::ApplicationController
     include Rectify::ControllerHelpers
 
     steps = Ecomm.checkout_steps
