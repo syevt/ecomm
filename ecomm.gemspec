@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'coffee-rails'
   s.add_dependency 'countries'
   s.add_dependency 'draper'
-  s.add_dependency 'font-awesome-rails'
   s.add_dependency 'hamlit'
   s.add_dependency 'hamlit-rails'
   s.add_dependency 'i18n-js'

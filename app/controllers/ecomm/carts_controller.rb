@@ -1,5 +1,5 @@
 module Ecomm
-  class CartsController < ApplicationController
+  class CartsController < Ecomm::ApplicationController
     before_action { session[:cart] ||= Hash.new(0) }
 
     def show

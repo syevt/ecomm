@@ -1,7 +1,6 @@
 require 'bootstrap-sass'
 require 'countries/global'
 require 'draper'
-require 'font-awesome-rails'
 require 'hamlit'
 require 'i18n-js'
 require 'jquery-rails'
