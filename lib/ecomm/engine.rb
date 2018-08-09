@@ -15,6 +15,23 @@ end
 
 module Ecomm
   class Engine < ::Rails::Engine
+    def self.app_path
+      File.expand_path('../../app', called_from)
+    end
+
+    wd = Dir.getwd
+    Dir.chdir(app_path)
+
+    (Dir['*'] - %w(assets jobs views)).each do |dir|
+      class_eval <<-HEREDOC, __FILE__, __LINE__ + 1
+        def self.#{dir}_path(name)
+          File.expand_path("#{dir}/ecomm/\#{name}", app_path)
+        end
+      HEREDOC
+    end
+
+    Dir.chdir(wd)
+
     isolate_namespace Ecomm
 
     config.generators do |g|
