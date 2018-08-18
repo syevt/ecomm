@@ -104,7 +104,7 @@ The default path prefix `/store` may be changed in `config/routes.rb`:
 ```
 If there is a need to change translations feel free to edit the copied `config/locales/ecomm.en.yml`.
 
-To generate Ecomm views (in a case you want to apply some custom styling or change layout) just run:
+To generate Ecomm views (in a case you want to apply some custom styling or change layout, or even use its partials elsewhere) just run:
 ```bash
 $ rails generate ecomm:views
 ```
