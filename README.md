@@ -46,7 +46,7 @@ You will be asked a bunch of questions based on which you will get your Ecomm co
   ```ruby
   config.catalog_path = '/home/index'
   ```
-  8. Ecomm mailer sends an email to the user after the order is completed. Among other details it contains a link pointing to the order detais in your app, so the user may see the order's details, totals, status, etc. This means there should exist a kind of orders controller in your app. This setting requires the appropriate route helper's name. `order_url` is used as default:
+  8. Ecomm mailer sends an email to the user after the order is completed. Among other details it contains a link pointing to the order detais within your app, so the user may see the order's details, totals, status, etc. This means there should exist a kind of orders controller in your app. This setting requires the appropriate route helper's name. `order_url` is used as default:
   ```ruby
   config.completed_order_url_helper_method = 'order_url'
   ```
@@ -80,6 +80,20 @@ Ecomm expects your `Product` model to have the following fields - `main_image`, 
   end
   ```
 
+Once you feel the necessity to ***extend*** (not to overwrite) some of the Ecomm classes you may use `Ecomm::Engine.<types>_path(name)` helper method to require a class for monkey patching. For instance, if it is needed to patch the `Ecomm::Order` model just create `app/models/ecomm/order.rb` with:
+```ruby
+require Ecomm::Engine.models_path(:order)
+
+module Ecomm
+  class Order
+    include AASM # or whatever you like
+    # ...
+    end
+  end
+end
+```
+The same technique can be applied to controllers, presenters, queries, etc. In general, for each folder in `Ecomm`'s `app/` folder except `assets/`, `jobs/` and `views/`as for the above it obviously makes no sense.
+
 The default path prefix `/store` may be changed in `config/routes.rb`:
 ```ruby
   Rails.application.routes.draw do
@@ -90,10 +104,11 @@ The default path prefix `/store` may be changed in `config/routes.rb`:
 ```
 If there is a need to change translations feel free to edit the copied `config/locales/ecomm.en.yml`.
 
-To generate Ecomm views (in a case you want to apply some custom styling or change layout, or even to use the partials elsewhere) just run:
+To generate Ecomm views (in a case you want to apply some custom styling or change layout) just run:
 ```bash
 $ rails generate ecomm:views
 ```
 and find them in `app/views/ecomm`.
+
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
