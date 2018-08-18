@@ -2,7 +2,7 @@ module Ecomm
   module Checkout
     class ShowDeliveryStep < BaseCommand
       def self.build
-        new(Checkout::BuildOrder.build)
+        new(Ecomm::Checkout::BuildOrder.build)
       end
 
       def initialize(builder)

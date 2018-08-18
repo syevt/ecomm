@@ -2,7 +2,7 @@ module Ecomm
   module Cart
     class HandleCoupon < BaseCommand
       def self.build
-        new(Cart::GetCouponError.build)
+        new(Ecomm::Cart::GetCouponError.build)
       end
 
       def initialize(get_coupon_error)

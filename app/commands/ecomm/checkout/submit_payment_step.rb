@@ -2,7 +2,7 @@ module Ecomm
   module Checkout
     class SubmitPaymentStep < BaseCommand
       def self.build
-        new(Checkout::UpdateOrder.build)
+        new(Ecomm::Checkout::UpdateOrder.build)
       end
 
       def initialize(order_updater)

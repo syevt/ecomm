@@ -2,8 +2,8 @@ module Ecomm
   module Checkout
     class BuildCompletedOrder < BaseService
       def self.build
-        new(Checkout::BuildOrderAddresses.build,
-            Common::BuildLineItemsFromCart.build)
+        new(Ecomm::Checkout::BuildOrderAddresses.build,
+            Ecomm::Common::BuildLineItemsFromCart.build)
       end
 
       def initialize(*args)

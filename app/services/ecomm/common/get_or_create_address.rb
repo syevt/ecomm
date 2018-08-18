@@ -2,7 +2,7 @@ module Ecomm
   module Common
     class GetOrCreateAddress < BaseService
       def self.build
-        new(Checkout::GetAddressFromSession)
+        new(Ecomm::Checkout::GetAddressFromSession)
       end
 
       def initialize(get_address_from_session)

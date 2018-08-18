@@ -2,10 +2,10 @@ module Ecomm
   module Checkout
     class ShowAddressStep < BaseCommand
       def self.build
-        new(Cart::CalculateCartTotals.build,
-            Checkout::BuildOrder.build,
-            Checkout::InitializeOrder.build,
-            Common::GetCountries.build)
+        new(Ecomm::Cart::CalculateCartTotals.build,
+            Ecomm::Checkout::BuildOrder.build,
+            Ecomm::Checkout::InitializeOrder.build,
+            Ecomm::Common::GetCountries.build)
       end
 
       def initialize(*args)
