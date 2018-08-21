@@ -1,5 +1,5 @@
 Ecomm::Engine.routes.draw do
-  root to: 'cart#show'
+  root to: 'carts#show'
 
   resource :cart, only: [:show, :update]
   resources :cart_items, only: [:create, :destroy]
