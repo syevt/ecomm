@@ -1,7 +1,6 @@
 module Ecomm
   class BaseCommand
     include Wisper::Publisher
-    # include Rails.application.routes.url_helpers
     include Ecomm::Engine.routes.url_helpers
 
     class << self
@@ -17,7 +16,7 @@ module Ecomm
     end
 
     def evaluate(&block)
-      @caller = eval('self', block.binding)
+      @caller = eval('self', block.binding, __FILE__, __LINE__)
       instance_eval(&block)
     end
 
