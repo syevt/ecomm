@@ -40,6 +40,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'faker'
   s.add_development_dependency 'letter_opener'
   s.add_development_dependency 'poltergeist'
+  s.add_development_dependency 'pry-rails'
   s.add_development_dependency 'puma'
   s.add_development_dependency 'rack_session_access'
   s.add_development_dependency 'rails-controller-testing'
