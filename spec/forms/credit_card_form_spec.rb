@@ -43,6 +43,18 @@ describe Ecomm::CreditCardForm, type: :form do
       ).for(:month_year)
     end
 
+    it do
+      is_expected.not_to allow_value(
+        "00/#{future_year}"
+      ).for(:month_year)
+    end
+
+    it do
+      is_expected.not_to allow_value(
+        "13/#{future_year}"
+      ).for(:month_year)
+    end
+
     it { is_expected.not_to allow_value('1212').for(:month_year) }
     it { is_expected.not_to allow_value('1/12').for(:month_year) }
     it { is_expected.not_to allow_value('12/2').for(:month_year) }
