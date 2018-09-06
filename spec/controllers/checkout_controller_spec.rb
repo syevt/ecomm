@@ -21,7 +21,6 @@ describe Ecomm::CheckoutController, type: :controller do
           cart: { 1 => 1, 2 => 2, 3 => 3 },
           discount: 10
         }
-        expect(assigns(:countries).length).to be > 0
         order = assigns(:order)
         expect(order).to be_truthy
         expect(order.billing).to be_truthy

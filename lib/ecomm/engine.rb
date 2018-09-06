@@ -6,6 +6,7 @@ require 'i18n-js'
 require 'jquery-rails'
 require 'rectify'
 require 'sass-rails'
+require 'simple_form'
 require 'wisper'
 
 if Rails.env == 'test'
