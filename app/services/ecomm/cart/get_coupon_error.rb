@@ -5,7 +5,7 @@ module Ecomm
 
       def call(coupon_states)
         {
-          [true, false] => t('ecomm.coupon.non_existent'),
+          [true] => t('ecomm.coupon.non_existent'),
           [false, true] => t('ecomm.coupon.taken'),
           [false, false, true] => t('ecomm.coupon.expired')
         }[coupon_states]

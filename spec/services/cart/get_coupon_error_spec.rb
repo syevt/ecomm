@@ -1,7 +1,7 @@
 describe Ecomm::Cart::GetCouponError do
   describe '.call' do
     it "returns 'does not exist' message" do
-      result = described_class.call([true, false])
+      result = described_class.call([true])
       expect(result).to eq(t('ecomm.coupon.non_existent'))
     end
 
