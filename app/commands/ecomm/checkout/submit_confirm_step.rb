@@ -1,16 +1,14 @@
 module Ecomm
   module Checkout
     class SubmitConfirmStep < BaseCommand
+      pattr_initialize :order_builder, :mailer
+
       def self.build
         new(Ecomm::Checkout::BuildCompletedOrder.build, OrderMailer)
       end
 
-      def initialize(*args)
-        @build_order, @mailer = args
-      end
-
       def call(session, _params, flash, customer_id)
-        @order = @build_order.call(session, customer_id)
+        @order = order_builder.call(session, customer_id)
         @order.save ? handle_success(session, flash) : handle_error(flash)
       end
 
@@ -18,7 +16,7 @@ module Ecomm
 
       def handle_success(session, flash)
         %i(cart order discount coupon_id).each { |key| session.delete(key) }
-        @mailer.order_email(@order).deliver
+        mailer.order_email(@order).deliver
       rescue StandardError => error
         Rails.logger.error(error.inspect)
       ensure

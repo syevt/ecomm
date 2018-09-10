@@ -1,19 +1,17 @@
 module Ecomm
   module Checkout
     class ShowDeliveryStep < BaseCommand
+      pattr_initialize :order_builder
+
       def self.build
         new(Ecomm::Checkout::BuildOrder.build)
       end
 
-      def initialize(builder)
-        @builder = builder
-      end
-
       def call(session, *_args)
-        order = @builder.call(session)
-        return publish(:denied, checkout_address_path) unless order
+        order = order_builder.call(session)
+        return publish(:denied, checkout_address_path) if order.blank?
         shipments = Shipment.all
-        unless order.shipment
+        if order.shipment.blank?
           order.shipment_id = shipments.first.id
           order.shipment = ShipmentForm.from_model(shipments.first)
         end
