@@ -10,14 +10,11 @@ module Ecomm
       end
 
       def call(coupon_code)
-        coupon = Coupon.find_by(code: coupon_code)
-        coupon_states = coupon.nil? ? [true] : [false, coupon&.order.present?]
-        coupon_states << (coupon.expires < Date.today) if coupon_states.none?
-        if coupon_states.any?
-          publish(:error, @get_coupon_error.call(coupon_states))
-        else
-          publish(:ok, coupon)
-        end
+        coupon = Coupon.includes(:order).find_by(code: coupon_code)
+        coupon_states = coupon.present? ? [true, coupon.order.blank?] : [false]
+        coupon_states << (coupon.expires >= Date.today) if coupon_states.all?
+        return publish(:ok, coupon) if coupon_states.all?
+        publish(:error, @get_coupon_error.call(coupon_states))
       end
     end
   end
