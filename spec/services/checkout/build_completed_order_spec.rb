@@ -50,7 +50,7 @@ describe Ecomm::Checkout::BuildCompletedOrder do
       expect(order.credit_card.cvv).to eq('1234')
     end
 
-    it 'populates order items' do
+    it 'populates order line items' do
       expect(order.line_items.length).to eq(4)
     end
   end
