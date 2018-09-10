@@ -4,7 +4,7 @@ module Ecomm
       pattr_initialize :customer_orders
 
       def self.build
-        new(Ecomm::CustomerLastOrder)
+        new(Ecomm::CustomerOrders)
       end
 
       def call(_session, flash, customer_id)
