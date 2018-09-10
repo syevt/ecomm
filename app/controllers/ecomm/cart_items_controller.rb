@@ -1,7 +1,5 @@
 module Ecomm
   class CartItemsController < ApplicationController
-    before_action { session[:cart] ||= Hash.new(0) }
-
     def create
       product_id = params[:id]
       quantity = params[:quantity].present? ? params[:quantity].to_i : 1

@@ -1,11 +1,11 @@
 module Ecomm
   class ApplicationController < ::ApplicationController
     protect_from_forgery with: :exception
-
     helper_method :current_customer
+    before_action { session[:cart] ||= Hash.new(0) }
 
     def current_customer
-      send(Ecomm.current_customer_method)
+      public_send(Ecomm.current_customer_method)
     end
 
     private

@@ -1,7 +1,5 @@
 module Ecomm
   class CartsController < Ecomm::ApplicationController
-    before_action { session[:cart] ||= Hash.new(0) }
-
     def show
       @line_items = Ecomm::Common::BuildLineItemsFromCart.call(session[:cart])
       totals = Ecomm::Cart::CalculateCartTotals.call(session)
