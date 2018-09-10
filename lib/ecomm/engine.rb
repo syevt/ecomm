@@ -1,3 +1,4 @@
+require 'attr_extras'
 require 'bootstrap-sass'
 require 'countries/global'
 require 'draper'

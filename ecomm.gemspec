@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
 
   s.test_files = Dir['spec/**/*']
 
+  s.add_dependency 'attr_extras'
   s.add_dependency 'bootstrap-sass'
   s.add_dependency 'coffee-rails'
   s.add_dependency 'countries'
