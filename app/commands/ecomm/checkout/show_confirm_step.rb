@@ -11,7 +11,7 @@ module Ecomm
       def call(session, *_args)
         order = order_builder.call(session)
         return publish(:denied, checkout_payment_path) if order&.card.blank?
-        order.credit_card = CreditCard.new(order.card.to_h).decorate
+        order.credit_card = CreditCard.new(order.card.to_h)
         publish(
           :ok,
           order: order,

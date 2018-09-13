@@ -19,12 +19,12 @@
   .col-sm-3
     %h3.general-subtitle= t('ecomm.checkout.payment_info')
     %p.general-address
-      = @order.credit_card.starred_number
+      = presenter.starred_number(@order.credit_card)
       - if render_links
         %span.general-edit
           = link_to(t('ecomm.checkout.edit'), ecomm.checkout_payment_path)
       %br
-      = @order.credit_card.month_full_year
+      = presenter.month_full_year(@order.credit_card)
 .general-cart-item.divider-lg.visible-xs
 .visible-xs
   = render('/ecomm/carts/xs_cart_items', render_inputs: false)

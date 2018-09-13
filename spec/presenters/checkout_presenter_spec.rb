@@ -48,4 +48,20 @@ describe Ecomm::CheckoutPresenter do
       expect(subject.current?(:payment, 'address')).to be false
     end
   end
+
+  context 'credit card' do
+    let(:card) { build(:credit_card) }
+
+    context '#starred_number' do
+      it 'returns stars followed by last 4 digits' do
+        expect(subject.starred_number(card)).to eq('** ** ** 4647')
+      end
+    end
+
+    context '#month_full_year' do
+      it 'returns month and 4-digit year' do
+        expect(subject.month_full_year(card)).to eq('12/2020')
+      end
+    end
+  end
 end

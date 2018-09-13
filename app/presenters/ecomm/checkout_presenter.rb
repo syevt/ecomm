@@ -21,5 +21,13 @@ module Ecomm
     def current?(step, action)
       steps.index(step) == steps.index(action.to_sym)
     end
+
+    def starred_number(card)
+      "** ** ** #{card.number[-4..-1]}"
+    end
+
+    def month_full_year(card)
+      ('' << card.month_year).insert(3, '20')
+    end
   end
 end
