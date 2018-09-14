@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'hamlit-rails'
   s.add_dependency 'i18n-js'
   s.add_dependency 'jquery-rails'
+  s.add_dependency 'money-rails'
   s.add_dependency 'pg'
   s.add_dependency 'rails', '~> 5.1.6'
   s.add_dependency 'rails-i18n'
