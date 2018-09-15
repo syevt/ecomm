@@ -19,9 +19,9 @@
                 id: "shipment-#{shipment.id}", 'data-price': shipment.price,
                 'data-days-min': shipment.days_min,
                 'data-days-max': shipment.days_max,
-                'data-method': shipment.method)
+                'data-shipping-method': shipment.shipping_method)
               %span.radio-icon
-              %span.radio-text= shipment.method
+              %span.radio-text= shipment.shipping_method
         %td
           %span #{shipment.days_min} to #{shipment.days_max} days
         %td

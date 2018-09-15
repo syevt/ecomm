@@ -65,7 +65,9 @@ describe Ecomm::CheckoutController, type: :controller do
         get :delivery, session: { order: {} }
         order = assigns(:order)
         expect(order.shipment_id).to eq(1)
-        expect(order.shipment.method).to eq(shipments.first.method)
+        expect(order.shipment.shipping_method).to eq(
+          shipments.first.shipping_method
+        )
       end
     end
 

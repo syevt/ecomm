@@ -35,7 +35,7 @@ $ ->
         $('#shipment_price').val(shipmentPrice)
         $('#shipment_days_min').val(@getAttribute('data-days-min'))
         $('#shipment_days_max').val(@getAttribute('data-days-max'))
-        $('#shipment_method').val(@getAttribute('data-method'))
+        $('#shipping_method').val(@getAttribute('data-shipping-method'))
 
       $('[data-toggle="tooltip"]').tooltip()
 

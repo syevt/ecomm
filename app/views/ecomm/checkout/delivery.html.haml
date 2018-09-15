@@ -15,6 +15,7 @@
       = fields.hidden_field(:price, value: @order.shipment.price)
       = fields.hidden_field(:days_min, value: @order.shipment.days_min)
       = fields.hidden_field(:days_max, value: @order.shipment.days_max)
-      = fields.hidden_field(:method, value: @order.shipment.method)
+      = fields.hidden_field(:shipping_method,
+                            value: @order.shipment.shipping_method)
     = f.submit(t('ecomm.checkout.save_continue'),
       class: 'btn btn-default center-block mb-20')

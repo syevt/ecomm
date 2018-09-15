@@ -10,7 +10,7 @@
   .col-sm-3
     %h3.general-subtitle= t('ecomm.checkout.shipments')
     %p.general-address
-      = @order.shipment.method
+      = @order.shipment.shipping_method
       -if render_links
         %span.general-edit
           = link_to(t('ecomm.checkout.edit'), ecomm.checkout_delivery_path)
