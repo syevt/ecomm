@@ -38,7 +38,7 @@ describe Ecomm::Checkout::BuildCompletedOrder do
     end
 
     it 'assigns order subtotal' do
-      expect(order.subtotal).to eq(10)
+      expect(order.subtotal).to eq(Money.new(1000))
     end
 
     it 'populates order addresses' do
