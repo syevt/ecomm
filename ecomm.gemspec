@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
 
   s.test_files = Dir['spec/**/*']
 
+  s.add_dependency 'activerecord-session_store'
   s.add_dependency 'attr_extras'
   s.add_dependency 'bootstrap-sass'
   s.add_dependency 'coffee-rails'

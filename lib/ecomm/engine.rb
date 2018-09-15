@@ -1,3 +1,4 @@
+# require 'activerecord-session_store'
 require 'attr_extras'
 require 'bootstrap-sass'
 require 'countries/global'

@@ -25,8 +25,8 @@ describe Ecomm::CheckoutController, type: :controller do
         expect(order).to be_truthy
         expect(order.billing).to be_truthy
         expect(order.shipping).to be_truthy
-        expect(order.items_total).to eq(6.0)
-        expect(order.subtotal).to eq(5.4)
+        expect(order.items_total.cents).to eq(600)
+        expect(order.subtotal.cents).to eq(540)
       end
     end
 

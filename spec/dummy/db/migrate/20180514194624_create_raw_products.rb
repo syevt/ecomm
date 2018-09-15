@@ -4,7 +4,7 @@ class CreateRawProducts < ActiveRecord::Migration[5.1]
       t.json :image
       t.string :name
       t.text :desc
-      t.decimal :cost, precision: 5, scale: 2
+      t.monetize :cost
 
       t.timestamps
     end

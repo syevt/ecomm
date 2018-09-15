@@ -6,8 +6,8 @@ module Ecomm
     attribute(:shipment_id, Integer)
     attribute(:card, CreditCardForm)
     attribute(:credit_card, CreditCard)
-    attribute(:items_total, Decimal)
-    attribute(:subtotal, Decimal)
+    attribute(:items_total, Money)
+    attribute(:subtotal, Money)
     attribute(:shipment, ShipmentForm)
 
     def addresses_valid?

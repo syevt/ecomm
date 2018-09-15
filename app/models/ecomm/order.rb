@@ -8,5 +8,7 @@ module Ecomm
     has_one :billing_address, -> { billing }, class_name: 'Ecomm::Address'
     has_one :shipping_address, -> { shipping }, class_name: 'Ecomm::Address'
     has_one :credit_card, dependent: :destroy
+
+    monetize :subtotal_cents
   end
 end
