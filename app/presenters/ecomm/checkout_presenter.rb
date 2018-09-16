@@ -14,14 +14,6 @@ module Ecomm
       end
     end
 
-    def subtotal(value)
-      @subtotal ||= to_money(value)
-    end
-
-    def to_money(value)
-      value.instance_of?(Hash) ? Money.new(value[:fractional]) : value
-    end
-
     def previous?(step, action)
       steps.index(step) < steps.index(action.to_sym)
     end

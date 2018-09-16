@@ -20,22 +20,18 @@ feature 'Checkout complete page' do
           shipment: attributes_for(:shipment, price: { fractional: '500' }),
           shipment_id: 1,
           card: attributes_for(:credit_card),
-          subtotal: { fractional: 540 }
-          # subtotal: 5.4
+          subtotal: 5.4
         },
-        order_subtotal: { fractional: 540 }
-        # order_subtotal: 5.4
+        order_subtotal: 5.4
       )
       login_as(member, scope: :member)
       visit ecomm.checkout_confirm_path
-      sleep 300
       click_on(t('ecomm.checkout.confirm.place_order'))
     end
 
     include_examples 'order details'
 
-    # scenario 'has 5 as current checkout progress step' do
-    scenario 'has 5 as current checkout progress step', use_selenium: true do
+    scenario 'has 5 as current checkout progress step' do
       expect(page).to have_css('li.step.done', count: 4)
       expect(page).to have_css('li.step.active span.step-number', text: '5')
     end

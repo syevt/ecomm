@@ -12,7 +12,7 @@ feature 'Cart page' do
   context 'cart with items' do
     around do |example|
       @products = create_list(:raw_product, 3)
-      page.set_rack_session(cart: { 1 => 1, 2 => 2, 3 => 3 })
+      page.set_rack_session(cart: { '1' => 1, '2' => 2, '3' => 3 })
       visit ecomm.cart_path
       example.run
       page.set_rack_session(cart: nil)
@@ -102,7 +102,7 @@ feature 'Cart page' do
   context 'proceed to checkout' do
     around do |example|
       create_list(:raw_product, 3)
-      page.set_rack_session(cart: { 1 => 1, 2 => 2, 3 => 3 })
+      page.set_rack_session(cart: { '1' => 1, '2' => 2, '3' => 3 })
       example.run
       page.set_rack_session(cart: nil)
     end

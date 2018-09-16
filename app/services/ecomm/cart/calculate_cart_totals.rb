@@ -8,7 +8,7 @@ module Ecomm
         items_total = cart.values.each_with_index.sum do |quantity, index|
           quantity * products[index].price
         end
-        discount = cut ? (items_total * cut / 100) : 0.0
+        discount = Money.new(cut ? (items_total * cut / 100) : 0)
         [items_total, items_total - discount, discount]
       end
     end

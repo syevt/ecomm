@@ -12,7 +12,5 @@
   %td
     %strong.font-18= t('ecomm.carts.show.order_total')
   %td
-    %strong#order-total-label.font-18{'data-subtotal': presenter.subtotal(@order.subtotal).amount}= number_to_currency(presenter.subtotal(@order.subtotal) + presenter.to_money(@order.shipment.price))
-    -# %strong#order-total-label.font-18{'data-subtotal': |
-      -# presenter.subtotal(@order.subtotal).amount}= |
-      -# presenter.subtotal(@order.subtotal) + @order.shipment.price |
+    %strong#order-total-label.font-18{'data-subtotal': @order.subtotal.amount}= |
+      number_to_currency(@order.subtotal + @order.shipment.price) |

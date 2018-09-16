@@ -9,8 +9,8 @@ module Ecomm
     end
 
     def update
-      params[:quantities].each do |book_id, quantity|
-        session[:cart][book_id] = quantity.present? ? quantity.to_i : 1
+      params[:quantities].each do |product_id, quantity|
+        session[:cart][product_id] = quantity.present? ? quantity.to_i : 1
       end
 
       handle_coupon if params[:coupon].present?
