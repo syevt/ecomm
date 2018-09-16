@@ -1,6 +1,11 @@
 describe Ecomm::Checkout::BuildOrder do
   describe '#call' do
-    let(:session) { { order: { 'billing' => attributes_for(:address) } } }
+    let(:session) do
+      order = Ecomm::OrderForm.from_model(build(:order))
+      order.billing = Ecomm::AddressForm.from_model(build(:address))
+      { order: order }
+    end
+
     let(:order) { described_class.call(session) }
 
     it 'returns Ecomm::OrderForm instance' do

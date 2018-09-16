@@ -2,12 +2,11 @@ module Ecomm
   module Checkout
     class BuildOrder < BaseService
       def call(session)
-        return unless session[:order]
-        order_params = session[:order].merge(
-          items_total: session[:items_total],
-          subtotal: session[:order_subtotal]
-        )
-        OrderForm.from_params(order_params).tap(&:valid?)
+        order = session[:order]
+        return if order.blank?
+        order.items_total = session[:items_total]
+        order.subtotal = session[:order_subtotal]
+        order.tap(&:valid?)
       end
     end
   end
