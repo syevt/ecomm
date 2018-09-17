@@ -1,23 +1,19 @@
 describe Ecomm::Checkout::UpdateOrder do
   describe '#call' do
     let(:session) do
-      {
-        order: {
-          'billing' => attributes_for(:address),
-          'use_billing' => '1'
-        }
-      }
+      order = Ecomm::OrderForm.from_model(build(:order))
+      order.billing = Ecomm::AddressForm.from_model(build(:address))
+      order.use_billing = true
+      { order: order }
     end
 
     let(:order_params) do
       {
         'use_billing' => '0',
-        order: {
-          'shipping' => attributes_for(
-            :address, address_type: 'shipping', country: 'Schweiz'
-          ),
-          'card' => attributes_for(:credit_card, number: '1234-5678')
-        }
+        'shipping' => attributes_for(
+          :address, address_type: 'shipping', country: 'Schweiz'
+        ),
+        'card' => attributes_for(:credit_card, number: '1234-5678')
       }
     end
 
