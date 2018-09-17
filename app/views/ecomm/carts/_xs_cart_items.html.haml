@@ -1,8 +1,8 @@
 - @line_items.each do |line_item|
   - if render_inputs
     = link_to(cart_item_path(line_item.product_id),
-      data: { confirm: 'Are you sure?' }, class: 'close general-cart-close',
-      method: :delete) do
+      data: { confirm: t('ecomm.carts.show.are_you_sure') },
+      class: 'close general-cart-close', method: :delete) do
       %span{'aria-hidden': 'true'} &times;
   .general-img-wrap-table
     = image_tag(line_item.product.main_image, alt: line_item.product.title,

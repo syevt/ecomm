@@ -49,6 +49,6 @@
       - if render_inputs
         %td
           = link_to(cart_item_path(line_item.product_id),
-            data: { confirm: 'Are you sure?' },
+            data: { confirm: t('ecomm.carts.show.are_you_sure') },
             class: 'close general-cart-close', method: :delete) do
             %span{'aria-hidden': 'true'} &times;
