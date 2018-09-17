@@ -34,7 +34,7 @@ You will be asked a bunch of questions based on which you will get your Ecomm co
   ```ruby
   config.signin_path = '/users/sign_in'
   ```
-  5. The name of the flash key which keeps the current path. This is used by your authentication engine on friendly forwarding: when an authenticated user tries to hit the page that requires authentication he will be forwarded to the sign in page first and this key holds the target page path to forward to after a successful sign in. The default one is, again, for Devise:
+  5. The name of the flash key which keeps the current path. This is used by your authentication engine on friendly forwarding: when an unauthenticated user tries to hit the page that requires authentication he will be forwarded to the sign in page first and this key holds the target page path to forward to after a successful sign in. The default one is, again, for Devise:
   ```ruby
   config.flash_login_return_to = 'user_return_to'
   ```
@@ -46,7 +46,7 @@ You will be asked a bunch of questions based on which you will get your Ecomm co
   ```ruby
   config.catalog_path = '/home/index'
   ```
-  8. Ecomm mailer sends an email to the user after the order is completed. Among other details it contains a link pointing to the order detais within your app, so the user may see the order's details, totals, status, etc. This means there should exist a kind of orders controller in your app. This setting requires the appropriate route helper's name. `order_url` is used as default:
+  8. Ecomm mailer sends an email to the user after the order is completed. Among other details it contains a link pointing to the order details within your app, so the user may see the order's details, totals, status, etc. This means there should exist a kind of orders controller in your app. This setting requires the appropriate route helper's name. `order_url` is used as default:
   ```ruby
   config.completed_order_url_helper_method = 'order_url'
   ```
@@ -109,6 +109,14 @@ To generate Ecomm views (in a case you want to apply some custom styling or chan
 $ rails generate ecomm:views
 ```
 and find them in `app/views/ecomm`.
+
+## Testing
+
+For feature specs in your app you can use Ecomm's `FactoryBot` factories with just requiring them with
+``` ruby
+require 'ecomm/factories'
+```
+where you need them.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
