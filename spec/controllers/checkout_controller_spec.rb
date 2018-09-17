@@ -3,6 +3,7 @@ describe Ecomm::CheckoutController, type: :controller do
 
   context 'logged in user' do
     let(:member) { create(:member) }
+    let(:order) { Ecomm::OrderForm.new }
 
     before { sign_in(member) }
 
@@ -37,7 +38,7 @@ describe Ecomm::CheckoutController, type: :controller do
             billing: attributes_for(:address, address_type: 'billing'),
             shipping: attributes_for(:address, address_type: 'shipping')
           }
-        }, session: { order: {} }
+        }, session: { order: order }
         expect(response).to redirect_to(checkout_delivery_path)
       end
 
@@ -48,7 +49,7 @@ describe Ecomm::CheckoutController, type: :controller do
                                               city: '2822'),
             shipping: attributes_for(:address, address_type: 'shipping')
           }
-        }, session: { order: {} }
+        }, session: { order: order }
         expect(response).to redirect_to(checkout_address_path)
       end
     end
@@ -57,12 +58,12 @@ describe Ecomm::CheckoutController, type: :controller do
       let!(:shipments) { create_list(:shipment, 3) }
 
       it 'renders :delivery template' do
-        get :delivery, session: { order: {} }
+        get :delivery, session: { order: order }
         expect(response).to render_template(:delivery)
       end
 
       it 'assigns shipment to @order' do
-        get :delivery, session: { order: {} }
+        get :delivery, session: { order: order }
         order = assigns(:order)
         expect(order.shipment_id).to eq(1)
         expect(order.shipment.shipping_method).to eq(
@@ -75,21 +76,21 @@ describe Ecomm::CheckoutController, type: :controller do
       it 'with shipment present redirects to checkout#payment' do
         post :submit_delivery,
              params: { shipment: attributes_for(:shipment) },
-             session: { order: {} }
+             session: { order: order }
         expect(response).to redirect_to(checkout_payment_path)
       end
 
       it 'with no shipment redirects back to checkout#delivery' do
-        post :submit_delivery, session: { order: {} }
+        post :submit_delivery, session: { order: order }
         expect(response).to redirect_to(checkout_delivery_path)
       end
     end
 
     context 'GET payment' do
       before do
-        get :payment, session: {
-          order: { shipment: attributes_for(:shipment) }
-        }
+        order = Ecomm::OrderForm.new
+        order.shipment = Ecomm::ShipmentForm.from_model(build(:shipment))
+        get :payment, session: { order: order}
       end
 
       it 'renders :payment template' do
@@ -105,7 +106,7 @@ describe Ecomm::CheckoutController, type: :controller do
       it 'with valid payment data redirects to checkout#confirm' do
         post :submit_payment,
              params: { order: { card: attributes_for(:credit_card) } },
-             session: { order: {} }
+             session: { order: order }
         expect(response).to redirect_to(checkout_confirm_path)
       end
 
@@ -113,25 +114,26 @@ describe Ecomm::CheckoutController, type: :controller do
         invalid_card = attributes_for(:credit_card, cardholder: '234&lj@')
         post :submit_payment,
              params: { order: { card: invalid_card } },
-             session: { order: {} }
+             session: { order: order }
         expect(response).to redirect_to(checkout_payment_path)
       end
     end
 
     context 'confirm actions' do
-      let(:session_data) do
-        {
-          cart: { 1 => 1, 2 => 2, 3 => 3 },
-          order: {
-            'billing' => attributes_for(:address),
-            'shipping' => attributes_for(:address, address_type: 'shipping'),
-            'shipment_id' => 1,
-            'shipment' => attributes_for(:shipment),
-            'card' => attributes_for(:credit_card),
-            'subtotal' => 5.4
-          }
-        }
+      let(:order) do
+        order = Ecomm::OrderForm.from_model(build(:order))
+        order.billing = Ecomm::AddressForm.from_model(build(:address))
+        order.shipping = Ecomm::AddressForm.from_model(
+          build(:address, address_type: 'shipping')
+        )
+        order.shipment = Ecomm::ShipmentForm.from_model(build(:shipment))
+        order.shipment_id = 1
+        order.card = Ecomm::CreditCardForm.from_model(build(:credit_card))
+        order.subtotal = Money.new(540)
+        order
       end
+
+      let(:session_data) { { cart: { 1 => 1, 2 => 2, 3 => 3 }, order: order } }
 
       context 'GET confirm' do
         before do
