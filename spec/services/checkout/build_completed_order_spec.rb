@@ -11,11 +11,11 @@ describe Ecomm::Checkout::BuildCompletedOrder do
     let(:session) do
       {
         coupon_id: 23,
-        order: {
-          'shipment_id' => 32,
-          'subtotal' => 10.0,
-          'card' => attributes_for(:credit_card)
-        }
+        order: Ecomm::OrderForm.from_params(
+          shipment_id: 32,
+          subtotal: Money.new(1000),
+          card: Ecomm::CreditCardForm.from_model(build(:credit_card))
+        )
       }
     end
 
