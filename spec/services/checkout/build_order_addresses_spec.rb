@@ -1,10 +1,12 @@
 describe Ecomm::Checkout::BuildOrderAddresses do
   describe '#call' do
     let(:order) do
-      {
-        'billing' => attributes_for(:address),
-        'shipping' => attributes_for(:address, address_type: 'shipping')
-      }
+      order = Ecomm::OrderForm.new
+      order.billing = Ecomm::AddressForm.from_model(build(:address))
+      order.shipping = Ecomm::AddressForm.from_model(
+        build(:address, address_type: 'shipping')
+      )
+      order
     end
 
     shared_examples 'returns addresses array' do
@@ -35,7 +37,8 @@ describe Ecomm::Checkout::BuildOrderAddresses do
 
     context 'with order using billing address for shipping' do
       let(:result) do
-        described_class.call(order.merge('use_billing' => true))
+        order.use_billing = true
+        described_class.call(order)
       end
 
       it 'only returns billing address' do
