@@ -3,6 +3,7 @@ log/*.log
 pkg/
 spec/dummy/log/*.log
 spec/dummy/tmp/
+spec/dummy/config/database.yml
 spec/dummy/public/uploads
 coverage/*
 Session.vim
