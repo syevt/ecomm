@@ -5,7 +5,7 @@ Ecomm is a Rails Engine that provides a shopping cart and checkout functionality
 To start add this line to your application's Gemfile:
 
 ```ruby
-gem 'ecomm', github: 'evtik/ecomm', branch: 'develop'
+gem 'ecomm', github: 'syevt/ecomm', branch: 'develop'
 ```
 
 And then execute:
@@ -80,7 +80,7 @@ Ecomm expects your `Product` model to have the following fields - `main_image`, 
   end
   ```
 
-Once you feel the necessity to ***extend*** (not to overwrite) some of the Ecomm classes you may use `Ecomm::Engine.<types>_path(name)` helper method to require a class for monkey patching. For instance, if it is needed to patch the `Ecomm::Order` model just create `app/models/ecomm/order.rb` with:
+Once you feel a necessity to ***extend*** (not to overwrite) some of the Ecomm classes you may use `Ecomm::Engine.<types>_path(name)` helper method to require a class for monkey patching. For instance, if it is needed to patch the `Ecomm::Order` model just create `app/models/ecomm/order.rb` with:
 ```ruby
 require Ecomm::Engine.models_path(:order)
 
@@ -112,7 +112,7 @@ and find them in `app/views/ecomm`.
 
 ## Testing
 
-For feature specs in your app you can use Ecomm's `FactoryBot` factories with just requiring them with
+For feature specs in your app you can use Ecomm's `FactoryBot` factories by just requiring them with
 ``` ruby
 require 'ecomm/factories'
 ```
