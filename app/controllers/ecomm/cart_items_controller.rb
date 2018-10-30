@@ -1,5 +1,5 @@
 module Ecomm
-  class CartItemsController < ApplicationController
+  class CartItemsController < Ecomm::ApplicationController
     def create
       product_id = params[:id]
       quantity = params[:quantity].present? ? params[:quantity].to_i : 1
