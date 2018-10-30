@@ -9,11 +9,7 @@ describe Ecomm::Common::GetOrCreateAddress do
     end
 
     context 'with non-valid address in session' do
-      let(:session) do
-        {
-          address: attributes_for(:address, zip: '27#&*').stringify_keys
-        }
-      end
+      let(:session) { { address: build(:address, zip: '27#&*') } }
       let(:address) { described_class.call(session, 'billing', 1) }
 
       include_examples 'returns FormObject'

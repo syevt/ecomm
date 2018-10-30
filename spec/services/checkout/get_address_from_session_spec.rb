@@ -1,6 +1,6 @@
 describe Ecomm::Checkout::GetAddressFromSession do
   describe '#call' do
-    let(:session) { { address: attributes_for(:address, country: 'Z|mbabwe') } }
+    let(:session) { { address: build(:address, country: 'Z|mbabwe') } }
     subject { described_class.call(session) }
 
     it 'returns AddressForm instance' do
