@@ -5,7 +5,7 @@ Ecomm is a Rails Engine that provides a shopping cart and checkout functionality
 To start add this line to your application's Gemfile:
 
 ```ruby
-gem 'ecomm', github: 'syevt/ecomm', branch: 'develop'
+gem 'ecomm', github: 'syevt/ecomm'
 ```
 
 And then execute:
